@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+<h1>Регистрация пользователя</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Регистрация</button>
+    {% if messages %}
+
+    {% for message in messages %}
+
+        {% if message.tags == 'error' %}
+            <div style="color:#ff0000">{{ message }}</div>
+
+        {% endif %}
+
+    {% endfor %}
+
+    {% endif %}
+
+    <span>
+        <a href="{% url 'main_page' %}"><p><- На главную страницу</a>
+    </span>
+
+</form>
+</body>
+</html>

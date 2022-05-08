@@ -1,12 +1,20 @@
 import random
 
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import login, logout
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+
+from publication_app.forms.registerform import RegisterUserForm
+from publication_app.forms.loginform import LoginUserForm
 
 from .models import Post, Comment, Like
 # Create your views here.
+
+
+def main_page(request):
+    return render(request, 'main_page.html')
+
 
 
 def profile(request):
@@ -22,12 +30,34 @@ def profile(request):
     return render(request, 'Profile.html', context)
 
 
-# class RegisterUser(CreateView):
-#     form_class = UserCreationForm
-#     template_name = 'register.html'
-#     success_url = reverse_lazy('login')
-#
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         c_def = self.get_user_context(title="Registration")
-#         return dict(list(context.items()) + list(c_def.items()))
+def register(request):
+    if request.method == 'POST':
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('profile')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = RegisterUserForm()
+    return render(request, 'register.html', {'form': form})
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginUserForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('profile')
+    else:
+        form = LoginUserForm()
+
+    return render(request, 'login.html', {'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
+

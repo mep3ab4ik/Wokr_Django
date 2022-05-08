@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+</head>
+<body>
+<H1>Авторизация</H1>
+    <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Авторизация</button>
+    </form>
+    <span>
+        <a href="{% url 'profile' %}"><p><- На главную страницу</a>
+    </span>
+</body>
+</html>

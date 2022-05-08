@@ -7,10 +7,11 @@ from django.urls import path
 from publication_app.views import *
 
 urlpatterns = [
-    path('', profile, name='profile'),
-    path('register/', RegisterUser.as_view(), name='register'),
-    # path('login/', LoginUser.as_view(), name='login'),
-    # path('logout/', logout_user, name='logout'),
+    path('', main_page, name='main_page'), 
+    path('profile/', profile, name='profile'),
+    path('register/', register, name='register'),
+    path('login/', user_login, name='login'),
+    path('logout/', user_logout, name='logout'),
     # path('profile/', profile_user, name='profile')
 ]
 

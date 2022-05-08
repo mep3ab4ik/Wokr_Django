@@ -4,23 +4,33 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    {% for post in posts %}
-        <h2>{{ post.title }}</h2>
-        {% if post.imagine %}
-            <div><img src="{{ post.imagine.url }}" alt="" width="150px" height="150px"></div>
-        {% endif %}
-        <div>{{ post.text }}</div>
-        {% for com in comments %}
-            {% if post.id == com.post_id %}
-            <div style="background: #808080">
-                <details>
-                    <summary>Показать комментарии</summary>
-                    {{ com.text }}
-                </details>
-            </div>
+    {% if request.user.is_authenticated %}
+        <h1>Добро пожаловать {{ user.username }} !</h1>
+        <p align="right"><a href="{% url 'logout' %}">Выход</a><p>
+        <p align="right"> <a href="{% url 'profile' %}">На главную страницу</a></p>
+
+        {% for post in posts %}
+            <h2>{{ post.title }}</h2>
+            {% if post.imagine %}
+                <div><img src="{{ post.imagine.url }}" alt="" width="250px" height="250px"></div>
             {% endif %}
+            <div>{{ post.text }}</div>
+            {% for com in comments %}
+                {% if post.id == com.post_id %}
+                <div style="background: #808080">
+                    <details>
+                        <summary>Показать комментарии</summary>
+                        {{ com.text }}
+                    </details>
+                </div>
+                {% endif %}
+            {% endfor %}
+            <div>{{ post.likes }}</div>
         {% endfor %}
-        <div>{{ post.likes }}</div>
-    {% endfor %}
+    {% else %}
+    Для просмотра данного раздела нужно авторизоваться или зарегистрировать!
+    <p><a href="{% url 'login' %}">Авторизация</a></p>
+    <p><a href="{% url 'register' %}">Регистрация</a></p>
+    {% endif %}
 </body>
 </html>
