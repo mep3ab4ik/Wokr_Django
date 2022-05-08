@@ -8,11 +8,11 @@ from publication_app.views import *
 
 urlpatterns = [
     path('', main_page, name='main_page'), 
-    path('profile/', profile, name='profile'),
+    path('account/', account, name='account'),
     path('register/', register, name='register'),
     path('login/', user_login, name='login'),
     path('logout/', user_logout, name='logout'),
-    # path('profile/', profile_user, name='profile')
+    path('redaction/', user_redaction, name='redaction')
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

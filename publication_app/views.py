@@ -1,14 +1,17 @@
 import random
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout
+# from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 
 from publication_app.forms.registerform import RegisterUserForm
 from publication_app.forms.loginform import LoginUserForm
+from publication_app.forms.EditUserForm import UserEditForm, ProfileEditForm
 
-from .models import Post, Comment, Like
+from .models import *
 # Create your views here.
 
 
@@ -16,8 +19,7 @@ def main_page(request):
     return render(request, 'main_page.html')
 
 
-
-def profile(request):
+def account(request):
     posts = Post.objects.filter(is_public=True).order_by('-created_time', '-id').all()
     comments = Comment.objects.all()
     likes = Like.objects.all()
@@ -27,7 +29,7 @@ def profile(request):
                'posts': posts,
                'comments': comments,
                'likes': likes}
-    return render(request, 'Profile.html', context)
+    return render(request, 'account.html', context)
 
 
 def register(request):
@@ -35,8 +37,9 @@ def register(request):
         form = RegisterUserForm(request.POST)
         if form.is_valid():
             user = form.save()
+            profile = Profile.objects.create(user=user)
             login(request, user)
-            return redirect('profile')
+            return redirect('account')
         else:
             messages.error(request, 'Ошибка регистрации')
     else:
@@ -50,7 +53,7 @@ def user_login(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('profile')
+            return redirect('account')
     else:
         form = LoginUserForm()
 
@@ -60,4 +63,25 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+
+@login_required()
+def user_redaction(request):
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user, data=request.POST)
+        profile_form = ProfileEditForm(instance=request.user.profile, data = request.POST, files = request.FILES)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('account')
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
+        return render(request,
+                      'redaction_profile.html',
+                      {'user_form': user_form,
+                       'profile_form': profile_form})
+
+
+
 

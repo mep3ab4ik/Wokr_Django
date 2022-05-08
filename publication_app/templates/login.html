@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Авторизация</title>
+
 </head>
 <body>
 <H1>Авторизация</H1>
+    {% if request.user.is_authenticated %}
+    <meta http-equiv="refresh" content="0.5;URL= {% url 'account'%}" />
+    {% endif %}
     <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Авторизация</button>
     </form>
     <span>
-        <a href="{% url 'profile' %}"><p><- На главную страницу</a>
+        <a href="{% url 'account' %}"><p><- На главную страницу</a>
     </span>
 </body>
 </html>
