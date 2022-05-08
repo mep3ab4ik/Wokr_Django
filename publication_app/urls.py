@@ -12,7 +12,8 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('login/', user_login, name='login'),
     path('logout/', user_logout, name='logout'),
-    path('redaction/', user_redaction, name='redaction')
+    path('redaction/', user_redaction, name='redaction'),
+    path('your_account/', your_account, name='your_account')
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

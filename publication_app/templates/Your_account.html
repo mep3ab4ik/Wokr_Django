@@ -2,9 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ифнормация о профиле</title>
+    <title>Информация об аккаунте</title>
 </head>
 <body>
+<h1>Данные вашего аккаунта {{ user.username }}</h1>
+{% for account in profile %}
+    {% if account.user_id == user.pk %}
+    <p> Ваш аватар:</p>
+    {% if account.photo %}
+        <div><img src="{{ account.photo.url }}" alt="" width="100px" height="100px"></div>
+    {% endif %}
+    <p><b>Ваша имя:</b> {{account.user.first_name}}</p>
+    <p><b>Ваша фамилия:</b> {{account.user.last_name}}</p>
+    <p><b>Ваш email:</b> {{account.user.email}}</p>
+    <p><b>Ваша дата рождения:</b> {{ account.date_of_birth }}</p>
+    {% endif %}
 
+{% endfor %}
+
+<a href="{% url 'account' %}"}>Вернутся обратно</a>
 </body>
 </html>

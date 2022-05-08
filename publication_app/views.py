@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout
-# from django.contrib.auth.models import User
+
 from django.urls import reverse_lazy
 
 from publication_app.forms.registerform import RegisterUserForm
@@ -25,10 +25,12 @@ def account(request):
     likes = Like.objects.all()
     # posts = ({'title': random.randint(100,1_000_000), 'text': 'dgrrg5gerbht5w4ytgethngsvrhn2#$%#645464'} for _ in range(100))
 
-    context = {'title': "Hello bit",
-               'posts': posts,
-               'comments': comments,
-               'likes': likes}
+    context = {
+        'title': "Hello bit",
+        'posts': posts,
+        'comments': comments,
+        'likes': likes,
+    }
     return render(request, 'account.html', context)
 
 
@@ -82,6 +84,11 @@ def user_redaction(request):
                       {'user_form': user_form,
                        'profile_form': profile_form})
 
+
+@login_required()
+def your_account(request):
+    profile = Profile.objects.all()
+    return render(request, 'Your_account.html', {'profile': profile})
 
 
 

@@ -5,9 +5,9 @@
 </head>
 <body>
     {% if request.user.is_authenticated %}
-        <h1>Добро пожаловать {{ user.username }} !</h1>
+        <h1>Добро пожаловать, {{ user.username }} !</h1>
         <p align="right"><a href="{% url 'redaction'%}">Редактировать профиль</a> | <a href="{% url 'logout' %}">Выход</a><p>
-
+        <p><a href="{% url 'your_account'%}">Информация о вашем аккаунте</a></p>
         {% for post in posts %}
             <h2>{{ post.title }}</h2>
             {% if post.imagine %}

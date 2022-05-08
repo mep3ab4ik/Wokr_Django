@@ -5,8 +5,8 @@
     <title>Редактирование профиля</title>
 </head>
 <body>
-    <h1>Редактирование данных профиля</h1>
-        <p>You can edit your account using the following form:</p>
+    <h1>Редактирование данных профиля {{ user.username }}</h1>
+        <p>Ваши данные::</p>
         <form method="post" enctype="multipart/form-data">
             {{ user_form.as_p }}
             {{ profile_form.as_p }}
