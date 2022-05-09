@@ -17,7 +17,7 @@
                 <div><img src="{{ post.imagine.url }}" alt="" width="250px" height="250px"></div>
             {% endif %}
             <div>{{ post.text }}</div>
-            <p align="right">Пост создал:<b>{{ user.username }}</b></p>
+            <p align="right">Пост создал:<b>{{ post.user.username }}</b></p>
             {% for com in comments %}
                 {% if post.id == com.post_id %}
                 <div style="background: #808080">

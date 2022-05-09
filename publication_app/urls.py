@@ -4,10 +4,17 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
 
-from publication_app.views import *
+from publication_app.views.account import account
+from publication_app.views.login import user_login
+from publication_app.views.main_page import main_page
+from publication_app.views.register import register
+from publication_app.views.user_logout import user_logout
+from publication_app.views.user_redaction import user_redaction
+from publication_app.views.your_account import your_account
+from publication_app.views.add_post import add_post
 
 urlpatterns = [
-    path('', main_page, name='main_page'), 
+    path('', main_page, name='main_page'),
     path('account/', account, name='account'),
     path('register/', register, name='register'),
     path('login/', user_login, name='login'),
