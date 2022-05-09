@@ -5,7 +5,9 @@ from publication_app.forms.EditUserForm import UserEditForm, ProfileEditForm
 
 @login_required()
 def user_redaction(request):
+    """Функция редактирования пользователя"""
     if request.method == 'POST':
+        # параметр 'instance' заполняет поля, если в бд есть данные
         user_form = UserEditForm(instance=request.user, data=request.POST)
         profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
         if user_form.is_valid() and profile_form.is_valid():

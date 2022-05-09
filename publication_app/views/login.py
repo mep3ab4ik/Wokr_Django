@@ -4,6 +4,7 @@ from django.contrib.auth import login
 
 
 def user_login(request):
+    """Функция авторизация пользователя"""
     if request.method == 'POST':
         form = LoginUserForm(data=request.POST)
         if form.is_valid():
@@ -12,5 +13,4 @@ def user_login(request):
             return redirect('account')
     else:
         form = LoginUserForm()
-
     return render(request, 'login.html', {'form': form})

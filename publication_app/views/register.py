@@ -6,10 +6,12 @@ from django.contrib import messages
 
 
 def register(request):
+    """Функция регистрации пользователя"""
     if request.method == 'POST':
         form = RegisterUserForm(request.POST)
         if form.is_valid():
             user = form.save()
+            # Создает связять между Profile и User по ключу
             Profile.objects.create(user=user)
             login(request, user)
             return redirect('account')
