@@ -18,7 +18,7 @@ class Post(models.Model):
     title = models.CharField(max_length=256, unique=False, blank=False, null=False)
     text = models.TextField(blank=False, null=False)
     is_public = models.BooleanField(default=True)
-    imagine = models.ImageField(null=True, blank=True)
+    imagine = models.ImageField(upload_to='posts/%Y', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

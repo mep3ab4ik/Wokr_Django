@@ -95,16 +95,13 @@ def your_account(request):
 @login_required()
 def add_post(request):
     if request.method == 'POST':
-        form = AddPostForm(request.POST)
+        form = AddPostForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             new_request = form.cleaned_data
             new_request['user_id'] = request.user.pk
             Post.objects.create(**new_request)
-            return  redirect('account')
-        else:
-            print('not work')
+            return redirect('account')
     else:
         form = AddPostForm()
-        print('lol')
     return render(request, 'add_post.html', {'form': form})
 
