@@ -10,6 +10,7 @@ from django.urls import reverse_lazy
 from publication_app.forms.registerform import RegisterUserForm
 from publication_app.forms.loginform import LoginUserForm
 from publication_app.forms.EditUserForm import UserEditForm, ProfileEditForm
+from publication_app.forms.add_post import AddPostForm
 
 from .models import *
 # Create your views here.
@@ -91,4 +92,19 @@ def your_account(request):
     return render(request, 'Your_account.html', {'profile': profile})
 
 
+@login_required()
+def add_post(request):
+    if request.method == 'POST':
+        form = AddPostForm(request.POST)
+        if form.is_valid():
+            new_request = form.cleaned_data
+            new_request['user_id'] = request.user.pk
+            Post.objects.create(**new_request)
+            return  redirect('account')
+        else:
+            print('not work')
+    else:
+        form = AddPostForm()
+        print('lol')
+    return render(request, 'add_post.html', {'form': form})
 

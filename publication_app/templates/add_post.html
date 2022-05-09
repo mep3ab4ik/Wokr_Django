@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление поста</title>
+</head>
+<body>
+<h1>Добавление поста:</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+<p><input type="submit" value="Добавить пост"></p>
+</form>
+<a href="{% url 'account' %}"}>Отмена добавление поста</a>
+</body>
+</html>

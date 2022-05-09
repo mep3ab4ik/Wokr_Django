@@ -13,7 +13,8 @@ urlpatterns = [
     path('login/', user_login, name='login'),
     path('logout/', user_logout, name='logout'),
     path('redaction/', user_redaction, name='redaction'),
-    path('your_account/', your_account, name='your_account')
+    path('your_account/', your_account, name='your_account'),
+    path('add_post', add_post, name='add_post')
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
