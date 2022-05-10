@@ -22,16 +22,16 @@
             <p align="right"><a href="/edit_post/{{post.pk}}">Редактировать пост</a>|<a href="/delete_post/{{post.pk}}">Удалить пост</a></p>
             {% endif %}
             <p align="right">Пост создал:<b>{{ post.user.username }}</b></p>
+            <details style="background: #808080" open>
+            <summary>Показать комментарии</summary>
+            <div style="background: #808080">
             {% for com in comments %}
                 {% if post.id == com.post_id %}
-                <div style="background: #808080">
-                    <details>
-                        <summary>Показать комментарии</summary>
-                        <b>{{ com.user }}</b>:{{ com.text }}
-                    </details>
-                </div>
+                        <p><b>{{ com.user }}</b>:{{ com.text }}</p>
                 {% endif %}
             {% endfor %}
+            </div>
+            </details>
             <div>{{ post.likes }}</div>
         <hr align="center" width="100%" size="2" color="#ff0000" />
         {% endfor %}
