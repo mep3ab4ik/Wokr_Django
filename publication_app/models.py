@@ -24,6 +24,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return '/account'
+
 
 class Comment(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
