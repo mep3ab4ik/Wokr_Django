@@ -17,4 +17,4 @@ def add_post(request):
             return redirect('account')
     else:
         form = AddPostForm()
-    return render(request, 'add_post.html', {'form': form})
+    return render(request, 'add_post.html', {'title': 'Добавление поста', 'form': form})

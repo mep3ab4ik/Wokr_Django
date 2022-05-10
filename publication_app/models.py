@@ -17,7 +17,7 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=256, unique=False, blank=False, null=False)
     text = models.TextField(blank=False, null=False)
-    is_public = models.BooleanField(default=True)
+    is_public = models.BooleanField(default=True, null=True)
     imagine = models.ImageField(upload_to='posts/%Y', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+<h1>Редактирование поста</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+ <p>
+    <label>Изменить заголовок поста:</label><br>
+    <input type="text" name="title" value="{{posts.title}}" />
+</p>
+<p>
+    <label>Изменить тест поста:</label><br>
+    <input type="text" name="text" value="{{posts.text}}" />
+</p>
+<!--<p>-->
+<!--    <label>Публичный пост ?</label><br>-->
+<!--    <input type="checkbox" name="is_public" value="{{posts.is_public}}" checked/>-->
+<!--</p>-->
+<p>
+    <label>Изменить фото к посту:</label>
+    <input type="file" accept="image/*" name="imagine" value="{{posts.imagine}}"/>
+</p>
+<input type="submit" value="Сохранить" >
+</form>
+<p><a href="{% url 'account' %}"}>Вернутся обратно</a></p>
+</body>
+</html>

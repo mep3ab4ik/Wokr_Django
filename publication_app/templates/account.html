@@ -12,11 +12,15 @@
         <p><a href="{% url 'add_post'%}">Добавить пост</a></p>
         <hr align="center" width="100%" size="2" color="#ff0000" />
         {% for post in posts %}
+            {{post.id}}
             <h4>{{ post.title }}</h4>
             {% if post.imagine %}
                 <div><img src="{{ post.imagine.url }}" alt="" width="250px" height="250px"></div>
             {% endif %}
             <div>{{ post.text }}</div>
+            {% if post.user_id == user.pk %}
+            <p align="right"><a href="/edit_post/{{post.pk}}">Редактировать пост</a>|<a href="/delete_post/{{post.pk}}">Удалить пост</a></p>
+            {% endif %}
             <p align="right">Пост создал:<b>{{ post.user.username }}</b></p>
             {% for com in comments %}
                 {% if post.id == com.post_id %}
