@@ -1,20 +1,35 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from publication_app.models import Post
-from publication_app.forms.add_post import AddPostForm
+from publication_app.models import Post, ImagePost
+from publication_app.forms.add_post import ImagePostForm
 
 
 @login_required()
 def add_post(request):
-    """Функция для добавления постов"""
     if request.method == 'POST':
-        form = AddPostForm(data=request.POST, files=request.FILES)
+        form = ImagePostForm(request.POST or None, request.FILES or None)
+        files = request.FILES.getlist('image')
         if form.is_valid():
-            new_request = form.cleaned_data
-            # Создаем new_request и в поля 'user_id' добавляем pk(можно id). Без этого error
-            new_request['user_id'] = request.user.pk
-            Post.objects.create(**new_request)
+            user = request.user
+            title = form.cleaned_data['title']
+            text = form.cleaned_data['text']
+            is_public = form.cleaned_data['is_public']
+            post_obj = Post.objects.create(
+                user=user,
+                title=title,
+                text=text,
+                is_public=is_public
+            )
+            for f in files:
+                ImagePost.objects.create(
+                    post=post_obj,
+                    image=f
+                )
             return redirect('account')
     else:
-        form = AddPostForm()
-    return render(request, 'add_post.html', {'title': 'Добавление поста', 'form': form})
+        form = ImagePostForm()
+        context = {
+            'title': 'Добавление нового поста',
+            'form': form
+        }
+    return render(request, 'add_post.html', context)

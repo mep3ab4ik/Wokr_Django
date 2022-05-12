@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+
 # Create your models here.
 
 
@@ -18,7 +19,6 @@ class Post(models.Model):
     title = models.CharField(max_length=256, unique=False, blank=False, null=False)
     text = models.TextField(blank=False, null=False)
     is_public = models.BooleanField(default=True, null=True)
-    imagine = models.ImageField(upload_to='posts/%Y', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -26,6 +26,12 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return '/account'
+
+
+class ImagePost(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='imageposts')
+    image = models.ImageField(upload_to='posts/%Y', null=True, blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
 class Comment(models.Model):

@@ -1,11 +1,31 @@
 from django import forms
+from publication_app.models import Post
 
 
-class AddPostForm(forms.Form):
-    """Класс формы для добавления постов"""
-    title = forms.CharField(label='Заголовок поста', max_length=256)
-    text = forms.CharField(label='Текст к посту')
-    # Параметр requered=False означает, что поле может быть пустым
-    imagine = forms.ImageField(label='Выберите фото',  required=False)
-    # Параметр initial=True ставил сразу галочку
-    is_public = forms.BooleanField(label='Публичная запись', initial=True,  required=False)
+class AddPostForm(forms.ModelForm):
+    title = forms.CharField(label='Введите название поста')
+    text = forms.CharField(
+        label='Введите тест к посту',
+        widget=forms.TextInput(attrs={'size':'80'})
+    )
+    is_public = forms.BooleanField(
+        label='Публичная запись ?',
+        initial=True,
+        required=False
+    )
+
+    class Meta:
+        model = Post
+        fields = ['title', 'text', 'is_public']
+
+
+class ImagePostForm(AddPostForm):
+    image = forms.ImageField(
+        label='Выберите фотографии',
+        required=False,
+        widget=forms.ClearableFileInput(attrs={'multiple': True})
+    )
+
+    class Meta(AddPostForm.Meta):
+        fields = AddPostForm.Meta.fields + ['image',]
+

@@ -14,9 +14,15 @@
         {% for post in posts %}
             {{post.id}}
             <h4>{{ post.title }}</h4>
-            {% if post.imagine %}
-                <div><img src="{{ post.imagine.url }}" alt="" width="250px" height="250px"></div>
-            {% endif %}
+            <div>
+            {% for img in image %}
+                {% if post.id == img.post_id %}
+                    {% if img.image %}
+                        <img src="{{ img.image.url }}" alt="" width="250px" height="250px">
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            </div>
             <div>{{ post.text }}</div>
             {% if post.user_id == user.pk %}
             <p align="right"><a href="/edit_post/{{post.pk}}">Редактировать пост</a>|<a href="/delete_post/{{post.pk}}">Удалить пост</a></p>

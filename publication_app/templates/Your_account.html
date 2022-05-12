@@ -16,7 +16,7 @@
     <p><b>Ваша имя:</b> {{account.user.first_name}}</p>
     <p><b>Ваша фамилия:</b> {{account.user.last_name}}</p>
     <p><b>Ваш email:</b> {{account.user.email}}</p>
-    <p><b>Ваша дата рождения:</b> {{ account.date_of_birth }}</p>
+    <p><b>Ваша дата рождения:</b> {{ account.date_of_birth|date:" M d,Y" }}</p>
     {% endif %}
 {% endfor %}
 
