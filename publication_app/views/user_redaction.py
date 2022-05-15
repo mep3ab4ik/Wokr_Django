@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from publication_app.forms.EditUserForm import UserEditForm, ProfileEditForm
+from publication_app.forms.edituserform import UserEditForm, ProfileEditForm
 from django.views import View
 
 

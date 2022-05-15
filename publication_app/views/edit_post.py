@@ -1,6 +1,6 @@
 from django.views import View
 from django.forms import modelformset_factory
-from publication_app.forms.EditPostForm import EditPostForm
+from publication_app.forms.editpostform import EditPostForm
 from django.shortcuts import render, redirect
 from publication_app.models import Post, ImagePost
 
