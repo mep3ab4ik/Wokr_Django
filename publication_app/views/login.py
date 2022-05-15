@@ -9,7 +9,11 @@ class UserLogin(View):
     @staticmethod
     def get(request):
         form = LoginUserForm()
-        return render(request, 'login.html', {'form': form})
+        context = {
+            'title': 'Авторизация',
+            'form': form
+        }
+        return render(request, 'login.html', context)
 
     @staticmethod
     def post(request):

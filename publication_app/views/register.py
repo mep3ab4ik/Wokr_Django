@@ -11,7 +11,11 @@ class Register(View):
     @staticmethod
     def get(request):
         form = RegisterUserForm()
-        return render(request, 'register.html', {'form': form})
+        context = {
+            'title': 'Регистрация ',
+            'form': form
+        }
+        return render(request, 'register.html', context)
 
     @staticmethod
     def post(request):
