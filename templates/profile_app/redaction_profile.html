@@ -9,9 +9,12 @@
     {{ profile_form.as_p }}
       {% for account in image %}
         {% if account.user_id == user.pk %}
-        <p> Ваш аватар:</p>
             {% if account.photo %}
-                <div><img src="{{ account.photo.url }}" alt="" width="100px" height="100px"></div>
+                <p> Ваш аватар:</p>
+                <<img src="{{ account.photo.url }}" alt="" width="100px" height="100px">
+            {% else %}
+                <p> Ваш аватар по умолчанию:</p>
+                <img src="/static/profile_app/image/avatar_icon.jpg" alt="" width="250px" height="250px">
             {% endif %}
         {% endif %}
     {% endfor %}

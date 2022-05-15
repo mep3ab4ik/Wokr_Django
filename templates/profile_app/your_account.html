@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
-
 {% block content %}
 <h1>Данные вашего аккаунта {{ user.username }}</h1>
 <p align="right"><a href="{% url 'site' %}"}>Вернутся обратно</a></p>
 {% for account in profile %}
     {% if account.user_id == user.pk %}
-    <p> Ваш аватар:</p>
-    {% if account.photo %}
-        <div><img src="{{ account.photo.url }}" alt="" width="250px" height="250px"></div>
-    {% endif %}
-    <p><b>Ваша имя:</b> {{account.user.first_name}}</p>
-    <p><b>Ваша фамилия:</b> {{account.user.last_name}}</p>
-    <p><b>Ваш email:</b> {{account.user.email}}</p>
-    <p><b>Ваша дата рождения:</b> {{ account.date_of_birth|date:" M d,Y" }}</p>
+        {% if account.photo %}
+            <p> Ваш аватар:</p>
+            <img src="{{ account.photo.url }}" alt="" width="250px" height="250px">
+        {% else %}
+            <p> Ваш аватар по умолчанию:</p>
+            <img src="/static/profile_app/image/avatar_icon.jpg" alt="" width="250px" height="250px">
+        {% endif %}
+        <p><b>Ваша имя:</b> {{account.user.first_name}}</p>
+        <p><b>Ваша фамилия:</b> {{account.user.last_name}}</p>
+        <p><b>Ваш email:</b> {{account.user.email}}</p>
+        <p><b>Ваша дата рождения:</b> {{ account.date_of_birth|date:" M d,Y" }}</p>
     {% endif %}
 {% endfor %}
 
