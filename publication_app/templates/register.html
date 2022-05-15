@@ -7,22 +7,16 @@
 <body>
 <h1>Регистрация пользователя</h1>
 <form method="POST">
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div style="background: #c0c0c0; color:#ff0000">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Регистрация</button>
-    {% if messages %}
-
-    {% for message in messages %}
-
-        {% if message.tags == 'error' %}
-            <div style="color:#ff0000">{{ message }}</div>
-
-        {% endif %}
-
-    {% endfor %}
-
-    {% endif %}
-
     <span>
         <a href="{% url 'main_page' %}"><p><- На главную страницу</a>
     </span>
