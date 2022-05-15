@@ -5,13 +5,11 @@ from django.urls import path
 from django.contrib.auth.decorators import login_required
 
 from publication_app.views.account import Account
-from publication_app.views.main_page import MainPage
 from publication_app.views.add_post import AddPost
 from publication_app.views.edit_post import EditImagePost
 from publication_app.views.delete_post import delete_post
 
 urlpatterns = [
-    path('', MainPage.as_view(), name='main_page'),
     path('site/', Account.as_view(), name='site'),
     path('add_post/', login_required(AddPost.as_view()), name='add_post'),
     path('edit_post/<int:pk>', login_required(EditImagePost.as_view()), name='edit_post'),

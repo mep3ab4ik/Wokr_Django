@@ -20,4 +20,4 @@ class MainPage(View):
             'comments': comments,
             'likes': likes,
         }
-        return render(request, 'publication_app/main_page.html', context)
+        return render(request, 'mainpage_app/main_page.html', context)
