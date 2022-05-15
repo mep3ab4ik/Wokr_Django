@@ -11,8 +11,6 @@ class Account(View):
         comments = Comment.objects.all()
         likes = Like.objects.all()
         image = ImagePost.objects.all()
-        # Для проверки
-        # posts = ({'title': random.randint(100,1_000_000), 'text': 'dgrrg5gerbht5w4ytgethngsvrhn2#$%#645464'} for _ in range(100))
         context = {
             'title': "Hello bit",
             'posts': posts,

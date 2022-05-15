@@ -8,7 +8,8 @@
     {% if request.user.is_authenticated %}
     <meta http-equiv="refresh" content="0.5;URL= {% url 'account'%}" />
     {% endif %}
-    <a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Авторизация</a>
+    <h1><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Авторизация</a></h1>
+    <hr align="center" width="100%" size="2" color="#ff0000" />
     {% for post in posts %}
         <h4>{{ post.title }}</h4>
         <div>

@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from publication_app.views.account import Account
 from publication_app.views.login import UserLogin
-from publication_app.views.main_page import main_page
+from publication_app.views.main_page import MainPage
 from publication_app.views.register import Register
 from publication_app.views.user_logout import user_logout
 from publication_app.views.user_redaction import UserRedaction
@@ -17,7 +17,7 @@ from publication_app.views.edit_post import EditImagePost
 from publication_app.views.delete_post import delete_post
 
 urlpatterns = [
-    path('', main_page, name='main_page'),
+    path('', MainPage.as_view(), name='main_page'),
     path('account/', Account.as_view(), name='account'),
     path('register/', Register.as_view(), name='register'),
     path('login/', UserLogin.as_view(), name='login'),

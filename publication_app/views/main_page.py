@@ -21,6 +21,3 @@ class MainPage(View):
             'likes': likes,
         }
         return render(request, 'main_page.html', context)
-def main_page(request):
-    """Функция главной страницы"""
-    return render(request, 'main_page.html')
