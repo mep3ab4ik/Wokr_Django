@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{title}}</title>
-</head>
-<body>
-<h1>{{ title }}:</h1>
+{% extends 'base.html' %}
+
+{% block content %}
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
 <p><input type="submit" value="Добавить пост"></p>
 </form>
 <a href="{% url 'account' %}"}>Отмена добавление поста</a>
-</body>
-</html>
+{% endblock %}

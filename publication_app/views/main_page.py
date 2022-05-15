@@ -14,7 +14,7 @@ class MainPage(View):
         # Для проверки
         # posts = ({'title': random.randint(100,1_000_000), 'text': 'dgrrg5gerbht5w4ytgethngsvrhn2#$%#645464'} for _ in range(100))
         context = {
-            'title': "Hello bit",
+            'title': "Kerz Django",
             'posts': posts,
             'image': image,
             'comments': comments,

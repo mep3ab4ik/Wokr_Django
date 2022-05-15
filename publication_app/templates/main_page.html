@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-    {% if request.user.is_authenticated %}
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
     <meta http-equiv="refresh" content="0.5;URL= {% url 'account'%}" />
     {% endif %}
     <h1><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Авторизация</a></h1>
@@ -39,5 +36,4 @@
             <div>{{ post.likes }}</div>
         <hr align="center" width="100%" size="2" color="#ff0000" />
         {% endfor %}
-</body>
-</html>
+{% endblock %}

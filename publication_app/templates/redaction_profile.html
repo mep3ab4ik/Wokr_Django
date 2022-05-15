@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Редактирование профиля</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <h1>Редактирование данных профиля {{ user.username }}</h1>
         <p>Ваши данные:</p>
         <form method="post" enctype="multipart/form-data">
@@ -14,5 +10,4 @@
             <p><input type="submit" value="Save changes"></p>
         </form>
     <a href="{% url 'account' %}"}>Отмена редактирования</a>
-</body>
-</html>
+{% endblock %}

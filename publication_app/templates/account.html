@@ -1,51 +1,48 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-    {% if request.user.is_authenticated %}
+{% extends 'base.html' %}
 
-        <h1>Добро пожаловать, {{ user.username }} !</h1>
-        <p align="right"><a href="{% url 'redaction'%}">Редактировать профиль</a> | <a href="{% url 'logout' %}">Выход</a><p>
-        <p align="right"><a href="{% url 'your_account'%}">Информация о вашем аккаунте</a></p>
-        <p><a href="{% url 'add_post'%}">Добавить пост</a></p>
-        <hr align="center" width="100%" size="2" color="#ff0000" />
-        {% for post in posts %}
-            {{post.id}}
-            <h4>{{ post.title }}</h4>
-            <div>
-            {% for img in image %}
-                {% if post.id == img.post_id %}
-                    {% if img.image %}
-                        <img src="{{ img.image.url }}" alt="" width="250px" height="250px">
-                    {% endif %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+    <h1>Добро пожаловать, {{ user.username }} !</h1>
+    <p align="right"><a href="{% url 'redaction'%}">Редактировать профиль</a> | <a href="{% url 'logout' %}">Выход</a><p>
+    <p align="right"><a href="{% url 'your_account'%}">Информация о вашем аккаунте</a></p>
+    <p><a href="{% url 'add_post'%}">Добавить пост</a></p>
+    <hr align="center" width="100%" size="2" color="#ff0000" />
+    {% for post in posts %}
+        {{post.id}}
+        <h4>{{ post.title }}</h4>
+        <div>
+        {% for img in image %}
+            {% if post.id == img.post_id %}
+                {% if img.image %}
+                    <img src="{{ img.image.url }}" alt="" width="250px" height="250px">
                 {% endif %}
-            {% endfor %}
-            </div>
-            <div>{{ post.text }}</div>
-            {% if post.user_id == user.pk %}
-            <p align="right"><a href="/edit_post/{{post.pk}}">Редактировать пост</a>|<a href="/delete_post/{{post.pk}}">Удалить пост</a></p>
             {% endif %}
-            <p align="right">Пост создал:<b>{{ post.user.username }}</b></p>
-            <details style="background: #808080" open>
-            <summary>Показать комментарии</summary>
-            <div style="background: #808080">
-            {% for com in comments %}
-                {% if post.id == com.post_id %}
-                        <p><b>{{ com.user }}</b>:{{ com.text }}</p>
-                {% endif %}
-            {% endfor %}
-            </div>
-            </details>
-            <div>{{ post.likes }}</div>
-        <hr align="center" width="100%" size="2" color="#ff0000" />
         {% endfor %}
+        </div>
+        <div>{{ post.text }}</div>
+        {% if post.user_id == user.pk %}
+            <p align="right"><a href="/edit_post/{{post.pk}}">Редактировать пост</a>|<a href="/delete_post/{{post.pk}}">Удалить пост</a></p>
+        {% endif %}
+        <p align="right">Пост создал:<b>{{ post.user.username }}</b></p>
+        <details style="background: #808080" open>
+        <summary>Показать комментарии</summary>
+        <div style="background: #808080">
+        {% for com in comments %}
+            {% if post.id == com.post_id %}
+                    <p><b>{{ com.user }}</b>:{{ com.text }}</p>
+            {% endif %}
+        {% endfor %}
+        </div>
+        </details>
+        <div>{{ post.likes }}</div>
+    <hr align="center" width="100%" size="2" color="#ff0000" />
+    {% endfor %}
 
-    {% else %}
-    Для просмотра данного раздела нужно авторизоваться или зарегистрировать!
+{% else %}
+    <h2>Для просмотра данного раздела нужно авторизоваться или зарегистрировать!
     <p><a href="{% url 'login' %}">Авторизация</a></p>
-    <p><a href="{% url 'register' %}">Регистрация</a></p>
-    {% endif %}
-</body>
-</html>
+    <p><a href="{% url 'register' %}">Регистрация</a></p></h2>
+{% endif %}
+
+{% endblock %}

@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Регистрация</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
 <h1>Регистрация пользователя</h1>
 <form method="POST">
     {% if messages %}
@@ -20,7 +16,5 @@
     <span>
         <a href="{% url 'main_page' %}"><p><- На главную страницу</a>
     </span>
-
 </form>
-</body>
-</html>
+{% endblock %}

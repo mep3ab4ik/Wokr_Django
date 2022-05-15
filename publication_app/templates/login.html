@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Авторизация</title>
+{% extends 'base.html' %}
 
-</head>
-<body>
+{% block content %}
 <H1>Авторизация</H1>
     {% if request.user.is_authenticated %}
     <meta http-equiv="refresh" content="0.5;URL= {% url 'account'%}" />
@@ -18,5 +13,4 @@
     <span>
         <a href="{% url 'main_page' %}"><p><- На главную страницу</a>
     </span>
-</body>
-</html>
+{% endblock %}
