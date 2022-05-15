@@ -1,12 +1,22 @@
-from django.contrib.auth.decorators import login_required
+from django.views import View
 from django.shortcuts import render, redirect
 from publication_app.models import Post, ImagePost
 from publication_app.forms.add_post import ImagePostForm
 
 
-@login_required()
-def add_post(request):
-    if request.method == 'POST':
+class AddPost(View):
+
+    @staticmethod
+    def get(request):
+        form = ImagePostForm()
+        context = {
+            'title': 'Добавление нового поста',
+            'form': form
+        }
+        return render(request, 'add_post.html', context)
+
+    @staticmethod
+    def post(request):
         form = ImagePostForm(request.POST or None, request.FILES or None)
         files = request.FILES.getlist('image')
         if form.is_valid():
@@ -26,10 +36,5 @@ def add_post(request):
                     image=f
                 )
             return redirect('account')
-    else:
-        form = ImagePostForm()
-        context = {
-            'title': 'Добавление нового поста',
-            'form': form
-        }
-    return render(request, 'add_post.html', context)
+
+

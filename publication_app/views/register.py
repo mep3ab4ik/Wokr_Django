@@ -3,11 +3,18 @@ from publication_app.forms.registerform import RegisterUserForm
 from publication_app.models import Profile
 from django.contrib.auth import login
 from django.contrib import messages
+from django.views import View
 
 
-def register(request):
-    """Функция регистрации пользователя"""
-    if request.method == 'POST':
+class Register(View):
+
+    @staticmethod
+    def get(request):
+        form = RegisterUserForm()
+        return render(request, 'register.html', {'form': form})
+
+    @staticmethod
+    def post(request):
         form = RegisterUserForm(request.POST)
         if form.is_valid():
             user = form.save()
@@ -16,7 +23,5 @@ def register(request):
             login(request, user)
             return redirect('account')
         else:
-            messages.error(request, 'Ошибка регистрации')
-    else:
-        form = RegisterUserForm()
-    return render(request, 'register.html', {'form': form})
+            messages.error(request, 'Ошибка регистрации. Попробуйте снова')
+
