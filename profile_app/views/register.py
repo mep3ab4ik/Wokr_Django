@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
-from publication_app.forms.registerform import RegisterUserForm
-from publication_app.models import Profile
+from profile_app.forms.registerform import RegisterUserForm
 from django.contrib.auth import login
 from django.contrib import messages
 from django.views import View
@@ -15,7 +14,7 @@ class Register(View):
             'title': 'Регистрация ',
             'form': form
         }
-        return render(request, 'register.html', context)
+        return render(request, 'profile_app/register.html', context)
 
     @staticmethod
     def post(request):
@@ -23,7 +22,7 @@ class Register(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('account')
+            return redirect('site')
         else:
             messages.error(request, 'Ошибка регистрации. Попробуйте снова')
 

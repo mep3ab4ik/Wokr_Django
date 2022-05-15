@@ -18,7 +18,7 @@ class EditImagePost(View):
             "form": post_form,
             "image": image_form
         }
-        return render(request, "edit_post.html", context)
+        return render(request, 'publication_app/edit_post.html', context)
 
     def post(self, request, pk):
         get_post = Post.objects.get(pk=pk)
@@ -40,4 +40,4 @@ class EditImagePost(View):
                         obj_img = ImagePost.objects.get(id=get_image[i].id)
                         obj_img.image = image.image
                         obj_img.save()
-            return redirect('account')
+            return redirect('site')

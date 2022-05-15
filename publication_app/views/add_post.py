@@ -13,7 +13,7 @@ class AddPost(View):
             'title': 'Добавление нового поста',
             'form': form
         }
-        return render(request, 'add_post.html', context)
+        return render(request, 'publication_app/add_post.html', context)
 
     @staticmethod
     def post(request):
@@ -35,6 +35,6 @@ class AddPost(View):
                     post=post_obj,
                     image=f
                 )
-            return redirect('account')
+            return redirect('site')
 
 

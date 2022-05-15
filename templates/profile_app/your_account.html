@@ -7,7 +7,7 @@
     {% if account.user_id == user.pk %}
     <p> Ваш аватар:</p>
     {% if account.photo %}
-        <div><img src="{{ account.photo.url }}" alt="" width="100px" height="100px"></div>
+        <div><img src="{{ account.photo.url }}" alt="" width="250px" height="250px"></div>
     {% endif %}
     <p><b>Ваша имя:</b> {{account.user.first_name}}</p>
     <p><b>Ваша фамилия:</b> {{account.user.last_name}}</p>

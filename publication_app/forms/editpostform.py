@@ -10,7 +10,6 @@ class EditPostForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'size': '80'})
     )
     is_public = forms.BooleanField(
-        label='Публичная запись ?',
         initial=True,
         required=False
     )

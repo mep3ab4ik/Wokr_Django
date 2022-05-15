@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from publication_app.models import Post, Comment,Like, ImagePost
+from publication_app.models import Post, Comment, Like, ImagePost
 
 
 class Account(View):
@@ -18,5 +18,5 @@ class Account(View):
             'comments': comments,
             'likes': likes,
         }
-        return render(request, 'site.html', context)
+        return render(request, 'publication_app/site.html', context)
 

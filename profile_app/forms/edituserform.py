@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from publication_app.models import Profile
+from profile_app.models import Profile
 
 
 class UserEditForm(forms.ModelForm):

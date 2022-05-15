@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 from django.views import View
-from publication_app.models import Profile, Post, ImagePost
+from profile_app.models import Profile
+from publication_app.models import Post, ImagePost
 
 
 class YourAccount(View):
@@ -17,4 +17,4 @@ class YourAccount(View):
             'posts': post,
             'image': image,
         }
-        return render(request, 'Your_account.html', context)
+        return render(request, 'profile_app/your_account.html', context)

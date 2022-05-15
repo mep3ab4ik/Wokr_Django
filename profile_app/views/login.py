@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from publication_app.forms.loginform import LoginUserForm
+from profile_app.forms.loginform import LoginUserForm
 from django.contrib.auth import login
 from django.views import View
 
@@ -13,7 +13,7 @@ class UserLogin(View):
             'title': 'Авторизация',
             'form': form
         }
-        return render(request, 'login.html', context)
+        return render(request, 'profile_app/login.html', context)
 
     @staticmethod
     def post(request):
@@ -21,6 +21,6 @@ class UserLogin(View):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('account')
+            return redirect('site')
 
 

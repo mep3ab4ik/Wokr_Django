@@ -6,4 +6,4 @@ from publication_app.models import Post
 @login_required()
 def delete_post(request, pk):
     Post.objects.get(id=pk).delete()
-    return redirect('account')
+    return redirect('site')
