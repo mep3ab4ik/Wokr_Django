@@ -33,6 +33,9 @@ class ImagePost(models.Model):
     image = models.ImageField(upload_to='posts/%Y', null=True, blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
+    def get_absolute_url(self):
+        return '/account'
+
 
 class Comment(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
