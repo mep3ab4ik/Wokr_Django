@@ -9,19 +9,6 @@ from .models import *
 admin.site.unregister(User)
 
 
-# @admin.register(Profile)
-# class ProfileAdmin(admin.ModelAdmin):
-#     list_display = ('user', 'date_of_birth', 'photo_tag' )
-#     ordering = ('-user',)
-#     readonly_fields = ('photo_tag',)
-#
-#     def photo_tag(self, obj):
-#         if obj.photo:
-#             return mark_safe(f'<img src="{obj.photo.url}" width ="150" height="150" />')
-#
-#     photo_tag.short_description = 'Image'
-#     photo_tag.allow_tags = True
-
 class ProfileInline(admin.StackedInline):
     model = Profile
 
@@ -43,10 +30,8 @@ class UserAdmin(UserAdminBase):
         ProfileInline,
     )
 
-
 @admin.register(ImagePost)
 class PostWithImage(admin.ModelAdmin):
-
     list_display = ('id', 'image_tag', 'post_id')
     ordering = ('-post_id',)
     readonly_fields = ('image_tag',)

@@ -18,8 +18,6 @@ class Register(View):
         form = RegisterUserForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # Создает связять между Profile и User по ключу
-            Profile.objects.create(user=user)
             login(request, user)
             return redirect('account')
         else:
