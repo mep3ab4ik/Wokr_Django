@@ -18,5 +18,5 @@ class Account(View):
             'comments': comments,
             'likes': likes,
         }
-        return render(request, 'account.html', context)
+        return render(request, 'site.html', context)
 

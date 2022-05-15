@@ -3,7 +3,7 @@
 {% block content %}
 <H1>Авторизация</H1>
     {% if request.user.is_authenticated %}
-    <meta http-equiv="refresh" content="0.5;URL= {% url 'account'%}" />
+        <meta http-equiv="refresh" content="0.3;URL= {% url 'site'%}" />
     {% endif %}
     <form method="POST">
     {% csrf_token %}

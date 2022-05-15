@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>Данные вашего аккаунта {{ user.username }}</h1>
-<p align="right"><a href="{% url 'account' %}"}>Вернутся обратно</a></p>
+<p align="right"><a href="{% url 'site' %}"}>Вернутся обратно</a></p>
 {% for account in profile %}
     {% if account.user_id == user.pk %}
     <p> Ваш аватар:</p>

@@ -18,7 +18,7 @@ from publication_app.views.delete_post import delete_post
 
 urlpatterns = [
     path('', MainPage.as_view(), name='main_page'),
-    path('account/', Account.as_view(), name='account'),
+    path('site/', Account.as_view(), name='site'),
     path('register/', Register.as_view(), name='register'),
     path('login/', UserLogin.as_view(), name='login'),
     path('logout/', user_logout, name='logout'),

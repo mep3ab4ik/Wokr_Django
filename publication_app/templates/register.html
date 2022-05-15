@@ -3,6 +3,9 @@
 {% block content %}
 <h1>Регистрация пользователя</h1>
 <form method="POST">
+    {% if request.user.is_authenticated %}
+        <meta http-equiv="refresh" content="0.3;URL= {% url 'site'%}" />
+    {% endif %}
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'error' %}
