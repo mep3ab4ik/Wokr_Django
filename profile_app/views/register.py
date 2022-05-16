@@ -25,4 +25,9 @@ class Register(View):
             return redirect('site')
         else:
             messages.error(request, 'Ошибка регистрации. Попробуйте снова')
+            context = {
+                'title': 'Регистрация ',
+                'form': form
+            }
+            return render(request, 'profile_app/register.html', context)
 

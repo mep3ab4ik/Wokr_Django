@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from profile_app.forms.loginform import LoginUserForm
 from django.contrib.auth import login
+from django.contrib import messages
 from django.views import View
 
 
@@ -22,5 +23,12 @@ class UserLogin(View):
             user = form.get_user()
             login(request, user)
             return redirect('site')
+        else:
+            messages.error(request, 'Неверные логин и пароль. Попробуйте снова')
+            context = {
+                'title': 'Авторизация',
+                'form': form
+            }
+            return render(request, 'profile_app/login.html', context)
 
 

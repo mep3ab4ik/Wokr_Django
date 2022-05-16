@@ -7,6 +7,13 @@
     {% endif %}
     <form method="POST">
     {% csrf_token %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div style="background: #c0c0c0; color:#ff0000">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
     {{ form.as_p }}
     <button type="submit">Авторизация</button>
     </form>
