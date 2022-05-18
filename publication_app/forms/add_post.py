@@ -1,5 +1,6 @@
 from django import forms
 from publication_app.models import Post
+from tag_app.models import Tag
 
 
 class AddPostForm(forms.ModelForm):
@@ -14,9 +15,15 @@ class AddPostForm(forms.ModelForm):
         required=False
     )
 
+    tag = forms.ModelMultipleChoiceField(
+        label='Тэги',
+        required=False,
+        queryset=Tag.objects.all(),
+    )
+
     class Meta:
         model = Post
-        fields = ['title', 'text', 'is_public']
+        fields = ['title', 'text', 'is_public', 'tag']
 
 
 class ImagePostForm(AddPostForm):

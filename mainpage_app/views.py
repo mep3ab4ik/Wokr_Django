@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import View
-from publication_app.models import Post, Comment,Like, ImagePost
+from publication_app.models import Post, Comment, Like, ImagePost
+from tag_app.models import Tag
 
 
 class MainPage(View):

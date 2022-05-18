@@ -5,7 +5,7 @@
 {% if request.user.is_authenticated %}
 <p><a href="{% url 'add_post'%}">Добавить пост</a></p>
 <div class="container mt-3">
-    <h2>Посты:</h2>
+    <h2>Все тэги:</h2>
     <div class="row">
         <div class="col-md-5">
             <div class="list-group">
@@ -15,6 +15,7 @@
             </div>
         </div>
         <div class="col-md">
+            <h2>Посты по тэгу {{ name_tag }}:</h2>
             {% for post in posts %}
             <div class="card mb-3">
                 <div class="card-header">
@@ -71,23 +72,6 @@
 <!--            {% for tag in post.tag.all %}-->
 <!--                {{ tag.tag }},-->
 <!--            {% endfor %}-->
-            {% if post.user_id == user.pk %}
-                <p align="right"><a href="/edit_post/{{post.pk}}">Редактировать пост</a>|<a href="/delete_post/{{post.pk}}">Удалить пост</a></p>
-            {% endif %}
-            <p align="right">Пост создал:<b>{{ post.user.username }}</b></p>
-<!--            <details style="background: #808080" open>-->
-<!--            <summary>Показать комментарии</summary>-->
-<!--            <div style="background: #808080">-->
-<!--            {% for com in comments %}-->
-<!--                {% if post.id == com.post_id %}-->
-<!--                        <p><b>{{ com.user }}</b>:{{ com.text }}</p>-->
-<!--                {% endif %}-->
-<!--            {% endfor %}-->
-<!--            </div>-->
-<!--            </details>-->
-<!--            <div>{{ post.likes }}</div>-->
-<!--        <hr align="center" width="100%" size="2" color="#ff0000" />-->
-
 {% else %}
     <h3>Для просмотра данного раздела нужно авторизоваться или зарегистрировать!</h3>
     <p><a href="{% url 'login' %}">Авторизация</a></p>

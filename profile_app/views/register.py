@@ -9,6 +9,8 @@ class Register(View):
 
     @staticmethod
     def get(request):
+        if request.user.is_authenticated:
+            return redirect('site')
         form = RegisterUserForm()
         context = {
             'title': 'Регистрация ',

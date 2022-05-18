@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from tag_app.models import Tag
 from django.db import models
 
 
@@ -11,9 +12,10 @@ class Post(models.Model):
     text = models.TextField(blank=False, null=False, verbose_name='Текст к посту')
     is_public = models.BooleanField(default=True, null=True, verbose_name='Доступна всем ?')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tag = models.ManyToManyField(Tag, related_name='tagpost')
 
     def __str__(self):
-        return self.title
+        return f'{self.id}.{self.title}'
 
     def get_absolute_url(self):
         return '/account'

@@ -9,6 +9,8 @@ class UserLogin(View):
 
     @staticmethod
     def get(request):
+        if request.user.is_authenticated:
+            return redirect('site')
         form = LoginUserForm()
         context = {
             'title': 'Авторизация',

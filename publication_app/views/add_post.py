@@ -17,6 +17,7 @@ class AddPost(View):
 
     @staticmethod
     def post(request):
+        print(request.POST)
         form = ImagePostForm(request.POST or None, request.FILES or None)
         files = request.FILES.getlist('image')
         if form.is_valid():
@@ -24,17 +25,25 @@ class AddPost(View):
             title = form.cleaned_data['title']
             text = form.cleaned_data['text']
             is_public = form.cleaned_data['is_public']
+            tags = form.cleaned_data.get('tag')
             post_obj = Post.objects.create(
                 user=user,
                 title=title,
                 text=text,
-                is_public=is_public
+                is_public=is_public,
             )
             for f in files:
                 ImagePost.objects.create(
                     post=post_obj,
                     image=f
                 )
+            for tag in tags:
+                post_obj.tag.add(tag)
             return redirect('site')
-
+        else:
+            context = {
+                'title': 'Добавление нового поста',
+                'form': form
+            }
+            return render(request, 'publication_app/add_post.html', context)
 
