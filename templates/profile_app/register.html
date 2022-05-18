@@ -3,9 +3,6 @@
 {% block content %}
 <h1>Регистрация пользователя</h1>
 <form method="POST">
-    {% if request.user.is_authenticated %}
-        <meta http-equiv="refresh" content="0.3;URL= {% url 'site'%}" />
-    {% endif %}
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'error' %}
@@ -16,8 +13,5 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Регистрация</button>
-    <span>
-        <a href="{% url 'main_page' %}"><p><- На главную страницу</a>
-    </span>
 </form>
 {% endblock %}

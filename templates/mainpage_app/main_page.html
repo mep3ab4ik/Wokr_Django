@@ -2,12 +2,12 @@
 
 {% block content %}
 
-{% if request.user.is_authenticated %}
-    <meta http-equiv="refresh" content="0.5;URL= {% url 'site'%}" />
-    {% endif %}
-    <h1><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Авторизация</a></h1>
-    <hr align="center" width="100%" size="2" color="#ff0000" />
+<hr align="center" width="100%" size="2" color="#ff0000" />
     {% for post in posts %}
+        <b>Тэги:</b>
+        {% for t in post.tag.all %}
+            {{ t.tag }},
+        {% endfor %}
         <h4>{{ post.title }}</h4>
         <div>
         {% for img in image %}
@@ -19,9 +19,6 @@
         {% endfor %}
         </div>
         <div>{{ post.text }}</div>
-        {% if post.user_id == user.pk %}
-            <p align="right"><a href="/edit_post/{{post.pk}}">Редактировать пост</a>|<a href="/delete_post/{{post.pk}}">Удалить пост</a></p>
-        {% endif %}
         <p align="right">Пост создал:<b>{{ post.user.username }}</b></p>
             <details style="background: #808080" open>
             <summary>Показать комментарии</summary>
@@ -33,7 +30,6 @@
             {% endfor %}
             </div>
             </details>
-            <div>{{ post.likes }}</div>
         <hr align="center" width="100%" size="2" color="#ff0000" />
         {% endfor %}
 {% endblock %}
