@@ -7,7 +7,7 @@ class AddPostForm(forms.ModelForm):
     title = forms.CharField(label='Введите название поста')
     text = forms.CharField(
         label='Введите тест к посту',
-        widget=forms.TextInput(attrs={'size': '80'})
+        widget=forms.Textarea()
     )
     is_public = forms.BooleanField(
         label='Публичная запись ?',

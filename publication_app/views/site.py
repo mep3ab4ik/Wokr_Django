@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from tag_app.models import Tag
 from publication_app.models import Post, Comment, Like, ImagePost
-from django.db.models import Count
+
 
 
 class Account(View):
@@ -14,7 +14,6 @@ class Account(View):
         likes = Like.objects.all()
         image = ImagePost.objects.all()
         tags = Tag.objects.all()
-        # count_tag = post
         context = {
             'title': "Hello bit",
             'posts': posts,

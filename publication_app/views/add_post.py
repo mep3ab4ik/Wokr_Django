@@ -17,7 +17,6 @@ class AddPost(View):
 
     @staticmethod
     def post(request):
-        print(request.POST)
         form = ImagePostForm(request.POST or None, request.FILES or None)
         files = request.FILES.getlist('image')
         if form.is_valid():

@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 
 
@@ -9,5 +8,12 @@ class Tag(models.Model):
 
     def __str__(self):
         return f'{self.tag}'
+
+
+class Hashtag(models.Model):
+    hashtag = models.CharField(max_length=64, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.id}.{self.hashtag}'
 
 

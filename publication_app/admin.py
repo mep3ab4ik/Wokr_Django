@@ -5,6 +5,11 @@ from django.utils.html import mark_safe
 from .models import *
 
 
+class HashtagWithPost(admin.StackedInline):
+    model = HashtagPost
+    list_display = ('id', 'hashtag')
+    ordering = ('-id', )
+
 class PostWithImage(admin.StackedInline):
     model = ImagePost
     list_display = ('id', 'image_tag', 'post_id')
@@ -27,6 +32,7 @@ class PostWithImage(admin.StackedInline):
 class PostAdmin(admin.ModelAdmin):
     inlines = (
         PostWithImage,
+        HashtagWithPost,
     )
     list_display = ('id', 'created_time', 'title')
     ordering = ('-created_time', '-id')

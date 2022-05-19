@@ -23,7 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('publication_app.urls')),
     path('', include('profile_app.urls')),
-    path('', include('mainpage_app.urls'))
 ]
 
 # команды для картинок
