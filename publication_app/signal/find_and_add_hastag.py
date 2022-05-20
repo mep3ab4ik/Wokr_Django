@@ -11,7 +11,6 @@ def post_save_hashtag(sender, instance, **kwargs):
         return False
     post = sender.objects.get(pk=instance.pk)
     hashtags = re.findall(r'#[A-zА-яёЁ]+', instance.text)
-    print(hashtags)
     if hashtags:
         for hashtag in hashtags:
             tag = Hashtag.objects.filter(hashtag=hashtag)

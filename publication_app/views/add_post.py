@@ -38,7 +38,7 @@ class AddPost(View):
                 )
             for tag in tags:
                 post_obj.tag.add(tag)
-            return redirect('site')
+            return redirect('posts')
         else:
             context = {
                 'title': 'Добавление нового поста',

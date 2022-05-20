@@ -10,7 +10,7 @@ class UserLogin(View):
     @staticmethod
     def get(request):
         if request.user.is_authenticated:
-            return redirect('site')
+            return redirect('posts')
         form = LoginUserForm()
         context = {
             'title': 'Авторизация',
@@ -24,7 +24,7 @@ class UserLogin(View):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('site')
+            return redirect('posts')
         else:
             messages.error(request, 'Неверные логин и пароль. Попробуйте снова')
             context = {

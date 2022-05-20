@@ -10,7 +10,7 @@ class UserRedaction(View):
     def get(request):
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile)
-        image = Profile.objects.all()
+        image = Profile.objects.get(pk=request.user.pk)
         context = {
             'title': 'Редактирование профиля',
             'user_form': user_form,
@@ -30,4 +30,4 @@ class UserRedaction(View):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('site')
+            return redirect('your_account')

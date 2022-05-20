@@ -9,18 +9,19 @@ class Account(View):
 
     @staticmethod
     def get(request):
-        posts = Post.objects.filter(is_public=True).order_by('-created_time', '-id').all()
+        posts = Post.objects.filter(is_public=True)
         comments = Comment.objects.all()
         likes = Like.objects.all()
         image = ImagePost.objects.all()
         tags = Tag.objects.all()
         context = {
-            'title': "Hello bit",
+            'title': "Посты",
+            'name_text': 'Публикации',
             'posts': posts,
             'image': image,
             'comments': comments,
             'likes': likes,
             'tag': tags
         }
-        return render(request, 'publication_app/site.html', context)
+        return render(request, 'publication_app/posts.html', context)
 

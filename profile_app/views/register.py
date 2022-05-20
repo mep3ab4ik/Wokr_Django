@@ -10,7 +10,7 @@ class Register(View):
     @staticmethod
     def get(request):
         if request.user.is_authenticated:
-            return redirect('site')
+            return redirect('posts')
         form = RegisterUserForm()
         context = {
             'title': 'Регистрация ',
@@ -24,7 +24,7 @@ class Register(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('site')
+            return redirect('posts')
         else:
             messages.error(request, 'Ошибка регистрации. Попробуйте снова')
             context = {

@@ -10,7 +10,7 @@
             <img src="{{ account.photo.url }}" alt="" width="250px" height="250px">
         {% else %}
             <p> Ваш аватар по умолчанию:</p>
-            <img src="/static/profile_app/image/avatar_icon.jpg" alt="" width="250px" height="250px">
+            <img src="/static/image/avatar_icon.jpg" alt="" width="250px" height="250px">
         {% endif %}
         <p><b>Ваша имя:</b> {{account.user.first_name}}</p>
         <p><b>Ваша фамилия:</b> {{account.user.last_name}}</p>
@@ -22,23 +22,21 @@
 <b>Ваши посты:</b>
 <hr align="center" width="100%" size="2" color="#ff0000" />
 {%for post in posts %}
-    {% if post.user_id == user.pk %}
-        <h4>{{ post.title }}</h4>
-        <div>
-            {% for img in image %}
-                {% if post.pk == img.post_id %}
-                    {% if img.image %}
-                        <img src="{{ img.image.url }}" alt="" width="250px" height="250px">
-                    {% endif %}
+    <h4>{{ post.title }}</h4>
+    <div>
+        {% for img in image %}
+            {% if post.pk == img.post_id %}
+                {% if img.image %}
+                    <img src="{{ img.image.url }}" alt="" width="250px" height="250px">
                 {% endif %}
-            {% endfor %}
-            </div>
-        <div>{{ post.text }}</div>
-        {% if post.user_id == user.pk %}
-            <p align="right"><a href="/edit_post/{{post.pk}}">Редактировать пост</a>|<a href="/delete_post/{{post.pk}}">Удалить пост</a></p>
-        {% endif %}
-        <hr align="center" width="100%" size="2" color="#ff0000" />
+            {% endif %}
+        {% endfor %}
+        </div>
+    <div>{{ post.text }}</div>
+    {% if post.user_id == user.pk %}
+        <p align="right"><a href="/edit_post/{{post.pk}}">Редактировать пост</a>|<a href="/delete_post/{{post.pk}}">Удалить пост</a></p>
     {% endif %}
+    <hr align="center" width="100%" size="2" color="#ff0000" />
 {% endfor %}
 
 {% endblock %}

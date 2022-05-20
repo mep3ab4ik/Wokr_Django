@@ -9,11 +9,20 @@ class Tag(models.Model):
     def __str__(self):
         return f'{self.tag}'
 
+    class Meta:
+        verbose_name = 'Тэг'
+        verbose_name_plural = 'Тэги'
+
 
 class Hashtag(models.Model):
     hashtag = models.CharField(max_length=64, null=True, blank=True)
 
     def __str__(self):
         return f'{self.id}.{self.hashtag}'
+
+
+    class Meta:
+        verbose_name = 'Хэштег'
+        verbose_name_plural = 'Хэштеги'
 
 

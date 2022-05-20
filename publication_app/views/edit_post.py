@@ -40,4 +40,4 @@ class EditImagePost(View):
                         obj_img = ImagePost.objects.get(id=get_image[i].id)
                         obj_img.image = image.image
                         obj_img.save()
-            return redirect('site')
+            return redirect('posts')

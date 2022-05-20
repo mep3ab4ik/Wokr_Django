@@ -9,7 +9,7 @@ class YourAccount(View):
     @staticmethod
     def get(request):
         profile = Profile.objects.all()
-        post = Post.objects.order_by('-created_time', '-id').all()
+        post = Post.objects.filter(user=request.user.pk)
         image = ImagePost.objects.all()
         context = {
             'title': 'Информация о вашем аккаунте',

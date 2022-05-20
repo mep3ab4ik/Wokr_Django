@@ -14,11 +14,22 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag)
 
+
     def __str__(self):
         return f'{self.id}.{self.title}'
 
+
     def get_absolute_url(self):
-        return '/site'
+        return f'/post/{self.id}'
+
+
+    class Meta:
+        # имя в единственном числе
+        verbose_name = 'Пост'
+        # имя в множественном числе
+        verbose_name_plural = 'Посты'
+        # заранее установленная сортировка (не требует писать objects.order_by()) и в админки тоже сразу сортирует
+        ordering = ['-created_time', '-id']
 
 
 class ImagePost(models.Model):
@@ -27,9 +38,12 @@ class ImagePost(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
-    @staticmethod
-    def get_absolute_url():
-        return '/site'
+    def get_absolute_url(self):
+        return f'/image{self.id}'
+
+    class Meta:
+        verbose_name = 'Фотография  поста'
+        verbose_name_plural = 'Фотограции постов'
 
 
 class HashtagPost(models.Model):

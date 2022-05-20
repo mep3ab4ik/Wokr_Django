@@ -10,6 +10,7 @@ class HashtagWithPost(admin.StackedInline):
     list_display = ('id', 'hashtag')
     ordering = ('-id', )
 
+
 class PostWithImage(admin.StackedInline):
     model = ImagePost
     list_display = ('id', 'image_tag', 'post_id')
@@ -34,9 +35,13 @@ class PostAdmin(admin.ModelAdmin):
         PostWithImage,
         HashtagWithPost,
     )
-    list_display = ('id', 'created_time', 'title')
+    list_display = ('id', 'created_time', 'title', 'is_public',)
     ordering = ('-created_time', '-id')
     readonly_fields = ('created_time',)
+    # изменять не заходя в пост
+    list_editable = ('is_public', )
+    # фильтровать по чем
+    list_filter = ('is_public',)
 
 
 @admin.register(Comment)

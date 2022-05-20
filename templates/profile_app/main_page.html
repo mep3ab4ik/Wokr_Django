@@ -2,34 +2,5 @@
 
 {% block content %}
 
-<hr align="center" width="100%" size="2" color="#ff0000" />
-    {% for post in posts %}
-        <b>Тэги:</b>
-        {% for t in post.tag.all %}
-            {{ t.tag }},
-        {% endfor %}
-        <h4>{{ post.title }}</h4>
-        <div>
-        {% for img in image %}
-            {% if post.id == img.post_id %}
-                {% if img.image %}
-                    <img src="{{ img.image.url }}" alt="" width="250px" height="250px">
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-        </div>
-        <div>{{ post.text }}</div>
-        <p align="right">Пост создал:<b>{{ post.user.username }}</b></p>
-            <details style="background: #808080" open>
-            <summary>Показать комментарии</summary>
-            <div style="background: #808080">
-            {% for com in comments %}
-                {% if post.id == com.post_id %}
-                        <p><b>{{ com.user }}</b>:{{ com.text }}</p>
-                {% endif %}
-            {% endfor %}
-            </div>
-            </details>
-        <hr align="center" width="100%" size="2" color="#ff0000" />
-        {% endfor %}
+{% include 'publication_app/include/_posts.html' %}
 {% endblock %}

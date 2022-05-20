@@ -1,6 +1,8 @@
 from django import forms
 from publication_app.models import Post
 from tag_app.models import Tag
+import re
+from django.core.exceptions import ValidationError
 
 
 class AddPostForm(forms.ModelForm):
@@ -24,6 +26,18 @@ class AddPostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'text', 'is_public', 'tag']
+
+    # Кастомный валидатор
+    def clean_title(self):
+        """Функция проверки поля 'title'
+
+        Если 'title' начинается с цифры, выдаем ошибку с тексом,
+        если нет, то возращаем 'title'
+        """
+        title = self.cleaned_data['title']
+        if re.match(r'\d', title):
+            raise ValidationError('Название поста не должно начинаться с цифры ')
+        return title
 
 
 class ImagePostForm(AddPostForm):
