@@ -18,7 +18,7 @@ def post_save_hashtag(sender, instance, **kwargs):
                 tag = Hashtag.objects.get(hashtag=hashtag)
                 HashtagPost.objects.create(hashtag=tag, post=post)
             else:
-                tag_obj = Hashtag(hashtag=hashtag)
+                tag_obj = Hashtag(hashtag=hashtag.lower())
                 tag_obj.save()
                 HashtagPost.objects.create(hashtag=tag_obj, post=post)
 

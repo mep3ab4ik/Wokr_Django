@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Tag(models.Model):
-    tag = models.CharField(max_length=128, null=False, blank=False)
+    tag = models.CharField(max_length=128, null=False, blank=False, unique=True)
 
 
     def __str__(self):
@@ -15,7 +15,7 @@ class Tag(models.Model):
 
 
 class Hashtag(models.Model):
-    hashtag = models.CharField(max_length=64, null=True, blank=True)
+    hashtag = models.CharField(max_length=64, null=True, blank=True, unique=True)
 
     def __str__(self):
         return f'{self.id}.{self.hashtag}'

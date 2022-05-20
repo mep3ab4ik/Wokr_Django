@@ -7,7 +7,7 @@ from .views.edit_post import EditImagePost
 from .views.delete_post import delete_post
 from .views.get_tag import GetTag
 from .views.read_post import ReadPostView
-
+from .views.area_tag import Tags
 
 urlpatterns = [
     path('posts/', Account.as_view(), name='posts'),
@@ -15,5 +15,7 @@ urlpatterns = [
     path('edit_post/<int:pk>/', login_required(EditImagePost.as_view()), name='edit_post'),
     path('delete_post/<int:pk>/', delete_post, name='delete_post'),
     path('post/<int:pk>', ReadPostView.as_view(), name='read_post'),
-    path('tags/<str:tag>/', GetTag.as_view(), name='get_tag'),
+    path('tag/<str:tag>/', GetTag.as_view(), name='get_tag'),
+    path('tags/', Tags.as_view(), name='tags'),
+
 ]
