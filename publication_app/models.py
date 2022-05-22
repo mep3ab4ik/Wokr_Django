@@ -11,8 +11,8 @@ class Post(models.Model):
     title = models.CharField(max_length=256, unique=False, blank=False, null=False, verbose_name='Название поста')
     text = models.TextField(blank=False, null=False, verbose_name='Текст к посту')
     is_public = models.BooleanField(default=True, null=True, verbose_name='Доступна всем ?')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    tag = models.ManyToManyField(Tag)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    tag = models.ManyToManyField(Tag, blank=True)
 
 
     def __str__(self):
@@ -48,7 +48,7 @@ class ImagePost(models.Model):
 
 class HashtagPost(models.Model):
     hashtag = models.ForeignKey(Hashtag, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='hashtag_post')
 
 
 class Comment(models.Model):
