@@ -37,7 +37,7 @@
                                     <a href="{% url 'delete_post' post.pk%}"><button type="button" class="btn btn-danger">Удалить пост</button></a>
                                 </p>
                             {% endif %}
-                            <a href="/post/{{post.pk}}" class="btn btn-primary">Открыть пост...</a>
+                            <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Открыть пост...</a>
                         </div>
                     </div>
                 </div>

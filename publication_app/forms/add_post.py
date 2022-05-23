@@ -32,11 +32,11 @@ class AddPostForm(forms.ModelForm):
         """Функция проверки поля 'title'
 
         Если 'title' начинается с цифры, выдаем ошибку с тексом,
-        если нет, то возращаем 'title'
+        если нет, то возвращаем 'title'
         """
         title = self.cleaned_data['title']
         if re.match(r'\d', title):
-            raise ValidationError('Название поста не должно начинаться с цифры ')
+            raise ValidationError('Название поста не должно начинаться с цифры.')
         return title
 
 

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from tag_app.models import Tag, Hashtag
 from django.db import models
+from django.urls import reverse
 
 
 # Create your models here.
@@ -20,7 +21,7 @@ class Post(models.Model):
 
 
     def get_absolute_url(self):
-        return f'/post/{self.id}'
+        return reverse('read_post', kwargs={'pk': self.pk})
 
 
     class Meta:

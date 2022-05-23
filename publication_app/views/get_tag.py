@@ -24,6 +24,6 @@ class GetTag(View):
             'tag': tags,
             'name_tag': name_tag,
         }
-        return render(request, 'publication_app/posts.html', context)
+        return render(request, 'profile_app/main_page.html', context)
 
 
