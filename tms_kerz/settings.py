@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'tag_app',
     'menu_app',
     'drf_spectacular',
+    'comment_app',
 ]
 
 MIDDLEWARE = [

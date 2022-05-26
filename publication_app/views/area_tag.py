@@ -10,8 +10,8 @@ class Tags(View):
     def get(request):
         # Область тегов. Аннотация выполняет суммирование по использованным тегам, сортирует их и выводит 5 популярных
         count_hashtag = Hashtag.objects.annotate(cnt=Count('hashtagpost')).order_by('-cnt')[:7]
-        count_tag = Tag.objects.annotate(cnt=Count('post')).order_by('-cnt')
 
+        count_tag = Tag.objects.annotate(cnt=Count('tag_post')).order_by('-cnt')
         context = {
             'title': 'Область тегов',
             'tag': count_tag,

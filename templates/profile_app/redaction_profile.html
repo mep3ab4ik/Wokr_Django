@@ -7,17 +7,13 @@
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
-      {% for account in image %}
-        {% if account.user_id == user.pk %}
-            {% if account.photo %}
-                <p> Ваш аватар:</p>
-                <<img src="{{ account.photo.url }}" alt="" width="100px" height="100px">
-            {% else %}
-                <p> Ваш аватар по умолчанию:</p>
-                <img src="/static/image/avatar_icon.jpg" alt="" width="250px" height="250px">
-            {% endif %}
-        {% endif %}
-    {% endfor %}
+    {% if request.user.profile.photo %}
+        <p> Ваш аватар:</p>
+        <img src="{{ request.user.profile.photo.url }}" alt="" width="250px" height="250px">
+    {% else %}
+        <p> Ваш аватар по умолчанию:</p>
+        <img src="/static/image/avatar_icon.jpg" alt="" width="250px" height="250px">
+    {% endif %}
     <p><input type="submit" value="Save changes"></p>
 </form>
 <a href="{% url 'your_account' %}"}>Отмена редактирования</a>

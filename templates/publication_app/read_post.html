@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md">
+    <h2>{{ name_text|default:"Публикации" }}</h2>
+    <div class="card mb-3">
+        <div class="card-header">
+            Пост создал:<b>{{ posts.user.username }}</b>
+        </div>
+            <div class="card-body">
+                <div class="media">
+                    {% for img in posts.imageposts.all %}
+                        {% if img.image %}
+                            <img src="{{ img.image.url }}" class="mr-3" alt="" width="250px" height="250px" >
+                        {% endif %}
+                    {% endfor %}
+                    <div class="media-body">
+                        <h5 class="card-title">{{ posts.title}}</h5>
+                        <p class="card-text">{{ posts.text}}.</p>
+                        <p align="right">Теги:
+                        {% for tag in posts.tag.all %}
+                            {{ tag.tag }},
+                        {% endfor%}</p>
+                        {% if post.user_id == user.pk %}
+                            <p align="right">
+                                <a href="{% url 'edit_post' post.pk%}"><button type="button" class="btn btn-warning">Редактировать пост</button></a>
+                                <a href="{% url 'delete_post' post.pk%}"><button type="button" class="btn btn-danger">Удалить пост</button></a>
+                            </p>
+                        {% endif %}
+                        <p>Комментарии:</p>
+                        {% for com in posts.post_com.all %}
+                            {% if com.user.profile.photo %}
+                            <img src="{{ com.user.profile.photo.url }}" style="border-radius:10px" alt="" width="30px" height="30px" >
+                            {% endif %}
+                            <b>{{ com.user }}</b>: {{ com }}
+                            <br>
+                        {% endfor %}
+                        <form method="post">
+                            <div class="form-floating">
+                                {% csrf_token %}
+                                    {{ form.as_p }}
+                                <input type="submit" value="Добавить комментарий">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <div class="card-footer text-muted">
+            {{ post.created_time|date:"d M Y H:i" }}
+        </div>
+    </div>
+</div>
+{% endblock %}

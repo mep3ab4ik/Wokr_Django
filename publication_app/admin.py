@@ -44,11 +44,6 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('is_public',)
 
 
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'created_time', 'text')
-    ordering = ('-created_time', '-id')
-    readonly_fields = ('created_time',)
 
 
 @admin.register(Like)

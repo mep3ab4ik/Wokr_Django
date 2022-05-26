@@ -17,18 +17,16 @@
                 </div>
                 <div class="card-body">
                     <div class="media">
-                        {% for img in image %}
-                            {% if post.id == img.post_id %}
-                                {% if img.image %}
-                                    <img src="{{ img.image.url }}" class="mr-3" alt="" width="250px" height="250px" >
-                                {% endif %}
+                        {% for img in post.imageposts.all %}
+                            {% if img.image %}
+                                <img src="{{ img.image.url }}" class="mr-3" alt="" width="250px" height="250px" >
                             {% endif %}
                         {% endfor %}
                         <div class="media-body">
                             <h5 class="card-title">{{ post.title}}</h5>
                             <p class="card-text">{{ post.text}}.</p>
                             <p align="right">Теги:
-                            {% for tag in post.tag.all%}
+                            {% for tag in post.tag.all %}
                                 {{ tag.tag }},
                             {% endfor%}</p>
                             {% if post.user_id == user.pk %}

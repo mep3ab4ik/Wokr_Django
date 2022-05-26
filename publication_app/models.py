@@ -4,16 +4,13 @@ from django.db import models
 from django.urls import reverse
 
 
-# Create your models here.
-
-
 class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=256, unique=False, blank=False, null=False, verbose_name='Название поста')
     text = models.TextField(blank=False, null=False, verbose_name='Текст к посту')
     is_public = models.BooleanField(default=True, null=True, verbose_name='Доступна всем ?')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
-    tag = models.ManyToManyField(Tag, blank=True)
+    tag = models.ManyToManyField(Tag, blank=True, related_name='tag_post')
 
 
     def __str__(self):
@@ -50,13 +47,6 @@ class ImagePost(models.Model):
 class HashtagPost(models.Model):
     hashtag = models.ForeignKey(Hashtag, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='hashtag_post')
-
-
-class Comment(models.Model):
-    created_time = models.DateTimeField(auto_now_add=True)
-    text = models.CharField(max_length=256, blank=False, verbose_name='Комментарий')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
 
 class Like(models.Model):

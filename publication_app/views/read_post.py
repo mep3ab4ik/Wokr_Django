@@ -1,7 +1,8 @@
 from django.views import View
-from django.shortcuts import render
-from tag_app.models import Tag
-from publication_app.models import Post, ImagePost
+from django.shortcuts import render, redirect
+
+from publication_app.models import Post
+from comment_app.forms.add_coment import AddCommentsForm
 
 
 # Создать html для кноки открыть пост нормальный ( На будущее )
@@ -9,14 +10,23 @@ class ReadPostView(View):
 
     @staticmethod
     def get(request, pk):
-        posts = Post.objects.filter(pk=pk)
-        image = ImagePost.objects.filter(post=pk)
-        tags = Tag.objects.all()
+        posts = Post.objects.get(pk=pk)
+        form = AddCommentsForm()
         context = {
             'title': 'Пост',
             'name_text': 'Публикации',
             'posts': posts,
-            'image': image,
-            'tag': tags
+            'form': form,
         }
-        return render(request, 'publication_app/posts.html', context)
+        return render(request, 'publication_app/read_post.html', context)
+
+    @staticmethod
+    def post(request, pk):
+        new_request = request.POST.copy()
+        new_request['user'] = request.user.pk
+        new_request['post'] = pk
+        print(new_request)
+        form = AddCommentsForm(data=new_request)
+        if form.is_valid:
+            form.save()
+            return redirect(f'/post/{pk}')
