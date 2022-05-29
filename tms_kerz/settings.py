@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'menu_app',
     'drf_spectacular',
     'comment_app',
+    'media_app',
+    'like_app'
 ]
 
 MIDDLEWARE = [
@@ -139,4 +141,8 @@ REST_FRAMEWORK = {
 
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 2
+}
+
+SPECTACULAR_SETTINGS = {
+    'COMPONENT_SPLIT_REQUEST': True
 }

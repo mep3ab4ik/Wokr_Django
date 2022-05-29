@@ -8,12 +8,11 @@ from .views.delete_post import delete_post
 from .views.get_tag import GetTag
 from .views.read_post import ReadPostView
 from .views.area_tag import Tags
-from .api.views.publications import PostView, HashtagView, TagPostView, HashtagPostView
+from .api.views.publications import TagPostView, HashtagPostView
+from .api.views.hastag import HashtagView
+from .api.views.router import api_routers
 
-from rest_framework import routers
 
-routers = routers.DefaultRouter()
-routers.register(r'posts', PostView)
 
 
 urlpatterns = [
@@ -24,13 +23,9 @@ urlpatterns = [
     path('post/<int:pk>', ReadPostView.as_view(), name='read_post'),
     path('tag/<str:tag>/', GetTag.as_view(), name='get_tag'),
     path('tags/', Tags.as_view(), name='tags'),
-    path('api/', include(routers.urls)),
+    path('api/', include(api_routers.urls)),
     # path('api/posts', PostView.as_view({'get': 'list', 'post': 'create'}), name='api-posts'),
     path('api/hashtag', HashtagView.as_view({'get': 'list'}), name='api-tags'),
     path('api/posttag/<str:tag>', TagPostView.as_view(), name='post-tag'),
     path('api/hashtag/<str:hashtag>', HashtagPostView.as_view(), name='hashtag-post'),
-
-
-
-
 ]

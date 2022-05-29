@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from tag_app.models import Tag, Hashtag
+from media_app.models import Media
+
 from django.db import models
 from django.urls import reverse
 
@@ -11,6 +13,7 @@ class Post(models.Model):
     is_public = models.BooleanField(default=True, null=True, verbose_name='Доступна всем ?')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     tag = models.ManyToManyField(Tag, blank=True, related_name='tag_post')
+    file = models.ForeignKey(Media, on_delete=models.SET_NULL, null=True, blank=True)
 
 
     def __str__(self):
@@ -49,7 +52,3 @@ class HashtagPost(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='hashtag_post')
 
 
-class Like(models.Model):
-    created_time = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)

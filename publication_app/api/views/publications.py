@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.pagination import LimitOffsetPagination
 
-from ..serializers.publications import PostSerializer, HashtagSerializer
+from ..serializers.publications import PostSerializer
 from publication_app.models import Post
 from tag_app.models import Hashtag, Tag
 
@@ -21,12 +21,6 @@ class PostView(GenericViewSet, ListModelMixin, CreateModelMixin):
     # def tag(self, request):
     #     tag = Tag.objects.all()
     #     return Response(tag)
-
-
-
-class HashtagView(GenericViewSet, ListModelMixin):
-    serializer_class = HashtagSerializer
-    queryset = Hashtag.objects.all()
 
 
 class TagPagination(LimitOffsetPagination):
