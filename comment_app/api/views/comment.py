@@ -5,7 +5,7 @@ from ..serializers.comment import CommentSerializer
 from ...models import Comment
 
 
-class CommentView(GenericViewSet, RetrieveModelMixin, CreateModelMixin):
+class CommentView(GenericViewSet, RetrieveModelMixin,ListModelMixin, CreateModelMixin):
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
     filter_backends = [filters.OrderingFilter]

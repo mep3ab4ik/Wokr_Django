@@ -5,7 +5,7 @@ from ..serializers.like import LikeSerializer
 from ...models import Like
 
 
-class LikeView(GenericViewSet, RetrieveModelMixin, CreateModelMixin):
+class LikeView(GenericViewSet, ListModelMixin, CreateModelMixin):
     serializer_class = LikeSerializer
     queryset = Like.objects.all()
     filter_backends = [filters.OrderingFilter]

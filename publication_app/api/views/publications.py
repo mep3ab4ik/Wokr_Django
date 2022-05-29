@@ -1,7 +1,6 @@
-from rest_framework import filters, generics
+from rest_framework import filters
 from rest_framework.mixins import ListModelMixin, CreateModelMixin
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.pagination import LimitOffsetPagination
@@ -17,10 +16,6 @@ class PostView(GenericViewSet, ListModelMixin, CreateModelMixin):
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['created_time']
 
-    # @action(methods=['get'], detail=False)
-    # def tag(self, request):
-    #     tag = Tag.objects.all()
-    #     return Response(tag)
 
 
 class TagPagination(LimitOffsetPagination):

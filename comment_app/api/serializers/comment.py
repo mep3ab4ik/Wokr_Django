@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from ...models import Comment
+from like_app.api.serializers.like import LikeSerializer
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -12,3 +13,5 @@ class CommentSerializer(serializers.ModelSerializer):
         default=serializers.CurrentUserDefault(),
         source='user',
     )
+
+    likes = LikeSerializer(source='com_like', many=True, read_only=True)
