@@ -31,6 +31,7 @@ class FriendList(models.Model):
 
         if account in self.friends.all():
             self.friends.remove(account)
+            self.save()
 
     def unfriend(self, removee):
         """

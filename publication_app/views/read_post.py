@@ -5,7 +5,6 @@ from publication_app.models import Post
 from comment_app.forms.add_coment import AddCommentsForm
 
 
-# Создать html для кноки открыть пост нормальный ( На будущее )
 class ReadPostView(View):
 
     @staticmethod
