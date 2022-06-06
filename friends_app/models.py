@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
-from django.utils import timezone
 # Create your models here.
 
 
@@ -71,38 +70,7 @@ class FriendRequest(models.Model):
     timestapm = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.sender.username
-
-    def accept(self):
-        """
-        Accept a friend request
-        Update both SENDER and RECEIVER friend list
-        """
-        receiver_friend_list = FriendList.objects.get(user=self.receiver)
-        if receiver_friend_list:
-            receiver_friend_list.add_friend(self.sender)
-            sender_friend_list = FriendList.objects.get(user=self.sender)
-            if sender_friend_list:
-                sender_friend_list.add_friend(self.receiver)
-                self.is_active = False
-                self.save()
-
-    def decline(self):
-        """
-        Decline a friend request.
-        It is 'declined' by settings the 'is_active' field to False
-        """
-        self.is_active = False
-        self.save()
-
-    def cancel(self):
-        """
-        Cancel a friend request.
-        It is 'cancelled' by settings the 'is_active' field to False.
-        This is only different with respect to 'declining' through the notification that is generated.
-        """
-        self.is_active = False
-        self.save()
+        return f'{self.current_user}'
 
 
 class SubscribeList(models.Model):

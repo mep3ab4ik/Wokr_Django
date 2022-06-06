@@ -14,6 +14,9 @@
         {% endif %}</p>
     </div>
     <div class="feature col">
+        Друзья:
+        {% for user in users.owner.all%}
+        {% endfor %}
         <button type="button" class="btn btn-success">Добавить в друзья </button>
         <button type="button" class="btn btn-danger">Удалить из друзей</button>
         <button type="button" class="btn btn-primary">Подписаться</button>
