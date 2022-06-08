@@ -1,15 +1,15 @@
 from django.contrib import admin
-from .models import FriendList
+from .models import Friendship
 
 
-@admin.register(FriendList)
-class FriendListAdmin(admin.ModelAdmin):
-    list_filter = ['user']
-    list_display = ['user']
-    search_fields = ['user']
-    # readonly_fields = ['user']
+@admin.register(Friendship)
+class FriendshipAdmin(admin.ModelAdmin):
+    list_filter = ['sender', 'receiver', 'is_accepted']
+    list_display = ['sender', 'receiver', 'is_accepted']
+    search_fields = ['sender', 'receiver', 'is_accepted']
+    # readonly_fields = ['sender']
 
     class Meta:
-        model = FriendList
+        model = Friendship
 
 

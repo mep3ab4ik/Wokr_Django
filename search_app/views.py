@@ -21,7 +21,8 @@ class UserSearchListView(ListView):
         q = self.request.GET.get("q")
         if q:
             # Если 'q' в GET запросе, фильтруем кверисет по данным из 'q'
-            return queryset.filter(Q(username__icontains=q))
+            # return queryset.filter(Q(username__icontains=q))
+            return queryset.filter(Q(username__startswith=q))
         return None
 
 # class UserSearchView(View):
