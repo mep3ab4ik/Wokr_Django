@@ -18,7 +18,8 @@
     <details >
         <summary><b>Список друзей:</b></summary>
         {% for friend in friends%}
-        <li>
+            {% if friend.sender == request.user %}
+            <li>
             {% if friend.receiver.profile.photo%}
                 <img src="{{ friend.receiver.profile.photo.url }}" style="border-radius:10px" alt="" width="50px" height="50px">
             {% else %}
@@ -27,7 +28,19 @@
             <a href="{% url 'user_account' friend.receiver.pk%}">
                 {{ friend.receiver }}
             </a>
-        </li>
+            </li>
+            {% else %}
+            <li>
+            {% if friend.sender.profile.photo%}
+                <img src="{{ friend.sender.profile.photo.url }}" style="border-radius:10px" alt="" width="50px" height="50px">
+            {% else %}
+                <img src="/static/image/avatar_icon.jpg" style="border-radius:10px" alt="" width="50px" height="50px">
+            {% endif %}
+            <a href="{% url 'user_account' friend.sender.pk%}">
+                {{ friend.sender }}
+            </a>
+            </li>
+             {% endif %}
         {% endfor %}
     </details>
 

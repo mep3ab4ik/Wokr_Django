@@ -13,7 +13,7 @@
             {% for post in posts %}
             <div class="card mb-3">
                 <div class="card-header">
-                    Пост создал:<a href="{% url 'user_account' user.pk%}"><b>{{ user.username }}</b></a>
+                    Пост создал:<a href="{% url 'user_account' post.user.pk%}"><b>{{ post.user.username }}</b></a>
                 </div>
                 <div class="card-body">
                     <div class="media">

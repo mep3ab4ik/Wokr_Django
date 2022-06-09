@@ -9,5 +9,7 @@ class Friendship(models.Model):
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
     is_sub = models.BooleanField(default=True)
     is_accepted = models.BooleanField(default=False)
-    accepted_at = models.DateTimeField(auto_now_add=True)
+    wait_answer = models.BooleanField(default=True)
 
+    def __str__(self):
+        return f'sender:{self.sender}->receiver:{self.receiver}'

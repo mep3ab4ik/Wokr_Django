@@ -14,12 +14,63 @@
         {% endif %}</p>
     </div>
     <div class="feature col">
-        Друзья:
-        {% for user in users.owner.all%}
+         <details>
+        <summary><b>Список друзей:</b></summary>
+        {% for friend in friends%}
+            {% if friend.sender == users %}
+            <li>
+            {% if friend.receiver.profile.photo%}
+                <img src="{{ friend.receiver.profile.photo.url }}" style="border-radius:10px" alt="" width="50px" height="50px">
+            {% else %}
+                <img src="/static/image/avatar_icon.jpg" style="border-radius:10px" alt="" width="50px" height="50px">
+            {% endif %}
+            <a href="{% url 'user_account' friend.receiver.pk%}">
+                {{ friend.receiver }}
+            </a>
+            </li>
+            {% else %}
+            <li>
+            {% if friend.sender.profile.photo%}
+                <img src="{{ friend.sender.profile.photo.url }}" style="border-radius:10px" alt="" width="50px" height="50px">
+            {% else %}
+                <img src="/static/image/avatar_icon.jpg" style="border-radius:10px" alt="" width="50px" height="50px">
+            {% endif %}
+            <a href="{% url 'user_account' friend.sender.pk%}">
+                {{ friend.sender }}
+            </a>
+            </li>
+             {% endif %}
         {% endfor %}
-        <button type="button" class="btn btn-success">Добавить в друзья </button>
-        <button type="button" class="btn btn-danger">Удалить из друзей</button>
-        <button type="button" class="btn btn-primary">Подписаться</button>
+    </details>
+
+    <details>
+        <summary><b>За кем слежу `(*∩_∩*)′:</b></summary>
+        {% for sub in subs%}
+        <li>
+            {% if sub.receiver.profile.photo%}
+                <img src="{{ friend.receiver.profile.photo.url }}" style="border-radius:10px" alt="" width="50px" height="50px">
+            {% else %}
+                <img src="/static/image/avatar_icon.jpg" style="border-radius:10px" alt="" width="50px" height="50px">
+            {% endif %}
+            <a href="{% url 'user_account' sub.receiver.pk%}">
+                {{ sub.receiver }}
+            </a>
+        </li>
+        {% endfor %}
+    </details>
+
+        {% for f in friends %}
+            {% if friend.sender and friend.receiver == request.user  %}
+            <button type="button" class="btn btn-success">Добавить в друзья </button>
+            {% elif friend.sender == request.user and friend.receiver %}
+            <button type="button" class="btn btn-danger">Удалить из друзей</button>
+            {% else %}
+            <button type="button" class="btn btn-primary">Подписаться</button>
+            {% endif %}
+        {% endfor %}
+<!--        <button type="button" class="btn btn-success">Добавить в друзья </button>-->
+<!--        <button type="button" class="btn btn-danger">Удалить из друзей</button>-->
+<!--        <button type="button" class="btn btn-primary">Подписаться</button>-->
     </div>
 </div>
 <p><b>Имя:</b> {{request.user.first_name}}</p>
