@@ -59,15 +59,24 @@
         {% endfor %}
     </details>
 
-        {% for f in friends %}
-            {% if friend.sender and friend.receiver == request.user  %}
-            <button type="button" class="btn btn-success">Добавить в друзья </button>
-            {% elif friend.sender == request.user and friend.receiver %}
-            <button type="button" class="btn btn-danger">Удалить из друзей</button>
-            {% else %}
-            <button type="button" class="btn btn-primary">Подписаться</button>
-            {% endif %}
-        {% endfor %}
+    {% if is_friend %}
+    <div class="alert alert-success" role="alert">
+        Вы уже друзья!
+    </div>
+    <button type="button" class="btn btn-danger">Удалить из друзей</button>
+    {% elif is_subscribed %}
+    <div class="alert alert-info" role="alert">
+        На тебя данный пользователь подписан
+        <button type="button" class="btn btn-danger">Отписка</button>
+    </div>
+    {% elif is_follower %}
+    <div class="alert alert-info" role="alert">
+        Ты подписан на его !
+    </div>
+    {% else %}
+    <button type="button" class="btn btn-success">Добавить в друзья </button>
+    {% endif %}
+
 <!--        <button type="button" class="btn btn-success">Добавить в друзья </button>-->
 <!--        <button type="button" class="btn btn-danger">Удалить из друзей</button>-->
 <!--        <button type="button" class="btn btn-primary">Подписаться</button>-->

@@ -18,7 +18,8 @@ class UpdateFriendsViewSet(GenericViewSet, UpdateModelMixin):
     """
     Через обновление происходит удаление их друзей.
     Когда пользователь удаляет друга, то в базе данных поле "is_accepted" переходит в Fasle.
-    Если "пользователя", который принял дружбу удаляю, то передаем обновляем поле sender c его id.
+    Если "пользователя", который принял дружбу удаляют, то передаем обновляем поле sender c его id.
+    Так как он становится подписчиком инициатора дружбы.
     """
     serializer_class = UpdateFriendshipSerializer
     queryset = Friendship.objects.filter(is_accepted=True)
