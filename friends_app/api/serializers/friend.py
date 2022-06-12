@@ -13,3 +13,15 @@ class FriendshipSerializer(serializers.ModelSerializer):
         default=serializers.CurrentUserDefault(),
         source='sender',
     )
+
+
+class UpdateFriendshipSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Friendship
+        fields = ['sender', 'receiver', 'is_accepted', 'publisher_receiver']
+        read_only_fields = ['receiver']
+
+    publisher_receiver = serializers.HiddenField(
+        default=serializers.CurrentUserDefault(),
+        source='receiver',
+    )
