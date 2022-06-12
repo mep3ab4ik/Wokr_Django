@@ -63,18 +63,30 @@
     <div class="alert alert-success" role="alert">
         Вы уже друзья!
     </div>
-    <button type="button" class="btn btn-danger">Удалить из друзей</button>
+    <a href="{% url 'operation_friend' operation='remove' pk=users.pk %}">
+        <button type="button" class="btn btn-danger">Удалить из друзей</button>
+    </a>
+
     {% elif is_subscribed %}
     <div class="alert alert-info" role="alert">
         На тебя данный пользователь подписан
-        <button type="button" class="btn btn-danger">Отписка</button>
     </div>
+
     {% elif is_follower %}
     <div class="alert alert-info" role="alert">
         Ты подписан на его !
     </div>
+    <a href="{% url 'operation_friend' operation='unsub' pk=users.pk %}">
+        <button type="button" class="btn btn-danger">Отписка</button>
+    </a>
+
     {% else %}
-    <button type="button" class="btn btn-success">Добавить в друзья </button>
+    <a href="{% url 'operation_friend' operation='add' pk=users.pk %}">
+        <button type="button" class="btn btn-success">Добавить в друзья </button>
+    </a>
+    <a href="{% url 'operation_friend' operation='sub' pk=users.pk %}">
+        <button type="button" class="btn btn-primary">Подписаться</button>
+    </a>
     {% endif %}
 
 <!--        <button type="button" class="btn btn-success">Добавить в друзья </button>-->

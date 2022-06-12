@@ -6,6 +6,6 @@ from .api.views.routrer import api_routers
 
 
 urlpatterns = [
-    path('connect/<str:operations>/<int:pk>', operation_friend, name='oper_friend'),
+    path('connect/<str:operation>/<int:pk>', operation_friend, name='operation_friend'),
     path('api/', include(api_routers.urls)),
 ]
