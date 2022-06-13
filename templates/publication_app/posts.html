@@ -2,7 +2,11 @@
 
 {% block content %}
 {% if request.user.is_authenticated %}
-<p><a href="{% url 'add_post'%}">Добавить пост</a></p>
+<p>
+    <a href="{% url 'add_post'%}">
+        <button type="button" class="btn btn-dark">Добавить пост</button>
+    </a>
+</p>
 {% include 'publication_app/include/_posts.html' %}
 {% else %}
     <h3>Для просмотра данного раздела нужно авторизоваться или зарегистрировать!</h3>
