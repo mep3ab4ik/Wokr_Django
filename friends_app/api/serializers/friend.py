@@ -18,7 +18,7 @@ class FriendshipSerializer(serializers.ModelSerializer):
 class UpdateFriendshipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friendship
-        fields = ['sender', 'receiver', 'is_accepted', 'publisher_receiver']
+        fields = "__all__"
         read_only_fields = ['receiver']
 
     publisher_receiver = serializers.HiddenField(

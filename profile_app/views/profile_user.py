@@ -34,16 +34,12 @@ class ProfileUserView(View):
         # Проверка на дружбу
         elif is_friendship.filter(is_accepted=True):
             is_friend = True
-        # Проверка, что ты подписчик
-        elif is_friendship.filter(Q(sender=request.user.pk) & Q(is_sub=True)):
-            is_subscribed = True
         # Проверка, что ты фолловер
-        elif is_friendship.filter(Q(receiver=request.user.pk) & Q(is_sub=True)):
+        elif is_friendship.filter(Q(sender=request.user.pk) & Q(is_sub=True)):
             is_follower = True
-        # else:
-        #     is_friend = None
-        #     is_subscribed = None
-        #     is_follower = None
+        # Проверка, что на тебя подписаны
+        elif is_friendship.filter(Q(receiver=request.user.pk) & Q(is_sub=True)):
+            is_subscribed = True
 
         context = {
             'title': f'Профиль {users.username}',
@@ -52,18 +48,6 @@ class ProfileUserView(View):
             'subs': sub,
             'is_friend': is_friend,
             'is_subscribed': is_subscribed,
-            'is_follow': is_follower,
+            'is_follower': is_follower,
         }
         return render(request, 'profile_app/profileuser.html', context)
-
-    @staticmethod
-    def post(request, operator, pk):
-        pass
-        # new_request = request.POST.copy()
-        # new_request['user'] = request.user.pk
-        # new_request['post'] = pk
-        # print(new_request)
-        # form = AddCommentsForm(data=new_request)
-        # if form.is_valid:
-        #     form.save()
-        #     return redirect(f'/post/{pk}')

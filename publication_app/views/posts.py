@@ -11,31 +11,36 @@ class Posts(View):
 
     @staticmethod
     def get(request):
-        # Запрос на получение всех друзей и кого ты подписан(Тут выдает на кого ты подписан)
+        # Запрос на получение всех твоих друзей и кого ты подписан
         friendship = Friendship.objects.filter(Q(sender=request.user.pk) |
                                                 (Q(receiver=request.user.pk) & Q(is_accepted=True)))
         print(friendship)
         # Если у тебя друзья или фолловеры:
         if friendship:
+            tags = Tag.objects.all()
+            # TODO ПОНЯТЬ КАК СДЕЛАТЬ СВОЙ QUERY SET
+            post = Post.objects.filter(is_public=True)
+            # Переписать запрос
             for user in friendship:
-                posts = Post.objects.filter(is_public=True).filter(Q(user=user.sender) | Q(user=user.receiver))
-                tags = Tag.objects.all()
+                pass
+
 
             # Проверка на наличие постов у "друзей"
-                if posts:
-                    context = {
-                        'title': "Посты",
-                        'name_text': 'Публикации',
-                        'posts': posts,
-                        'tag': tags
-                    }
-                # Если посты отсутствуют
-                else:
-                    context = {
-                        'title': "Посты",
-                        'information': 'У вашей друзей/фолловеров нет постов. '
-                                       'Найдите новых пользователей, которые вам интересны'
-                    }
+            # print(all)
+            if post:
+                context = {
+                    'title': "Посты",
+                    'name_text': 'Публикации',
+                    'posts': post,
+                    'tag': tags
+                }
+            # Если посты отсутствуют
+            else:
+                context = {
+                    'title': "Посты",
+                    'information': 'У вашей друзей/фолловеров нет постов. '
+                                   'Найдите новых пользователей, которые вам интересны'
+                }
         else:
             context = {
                 'title': "Посты",

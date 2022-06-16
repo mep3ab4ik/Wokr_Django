@@ -3,6 +3,12 @@ from profile_app.forms.registerform import RegisterUserForm
 from django.contrib.auth import login
 from django.contrib import messages
 from django.views import View
+from django.core.mail import EmailMessage
+from django.core.mail import send_mail
+from django.core import mail
+
+from profile_app.utils import send_email_for_verify
+from tms_kerz.settings import EMAIL_HOST_USER
 
 
 class Register(View):
@@ -23,8 +29,11 @@ class Register(View):
         form = RegisterUserForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
-            return redirect('posts')
+
+            # Отправка письма для верификации почты (написано в utils.py)
+            send_email_for_verify(request, user)
+            return redirect('confirm_email')
+
         else:
             messages.error(request, 'Ошибка регистрации. Попробуйте снова')
             context = {

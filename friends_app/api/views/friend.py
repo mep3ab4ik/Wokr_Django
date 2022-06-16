@@ -16,13 +16,15 @@ class FriendsViewSet(GenericViewSet, ListModelMixin, CreateModelMixin):
 
 class UpdateFriendsViewSet(GenericViewSet, UpdateModelMixin):
     """
-    Через обновление происходит удаление их друзей.
+    Поле 'wait_answer' ставиться в False.
+    1. Происходит принятие в заявки в дружбу. Тогда поле 'is_accepted' переходит в положение True
+    2. Через обновление происходит удаление их друзей.
     Когда пользователь удаляет друга, то в базе данных поле "is_accepted" переходит в Fasle.
     Если "пользователя", который принял дружбу удаляют, то передаем обновляем поле sender c его id.
     Так как он становится подписчиком инициатора дружбы.
     """
     serializer_class = UpdateFriendshipSerializer
-    queryset = Friendship.objects.filter(is_accepted=True)
+    queryset = Friendship.objects.filter(is_sub=False)
 
 
 class SubscribeViewSet(GenericViewSet, ListModelMixin, UpdateModelMixin, CreateModelMixin):

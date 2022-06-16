@@ -19,19 +19,19 @@ def operation_friend(request, operation, pk):
         print(friend)
         # Без удаления не придумал как проще
         if friend:
-            friend.sender = pk
-            friend.receiver = request.user.pk
+            friend.sender = new_friend
+            friend.receiver = request.user
             friend.is_accepted = False
             friend.is_sub = True
             friend.save()
 
     # Подписка на пользователя
     elif operation == 'sub':
-        Friendship.get_or_create(sender=request.user, receiver=new_friend, wait_answer=False)
+        Friendship.objects.get_or_create(sender=request.user, receiver=new_friend, wait_answer=False)
 
     # Отписка от пользователя, следовательно, удаление из базы
     elif operation == 'unsub':
-        friend = Friendship.filer(Q(sender=request.user.pk) & Q(receiver=pk) & Q(is_accepted=False))
-        friend.remove()
+        friend = Friendship.objects.filter(Q(sender=request.user.pk) & Q(receiver=pk) & Q(is_accepted=False))
+        friend.delete()
 
     return redirect(f'/user/{pk}')

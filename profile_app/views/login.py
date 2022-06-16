@@ -1,36 +1,20 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.views import LoginView
+
 from profile_app.forms.loginform import LoginUserForm
-from django.contrib.auth import login
-from django.contrib import messages
-from django.views import View
 
 
-class UserLogin(View):
+class UserLogin(LoginView):
 
-    @staticmethod
-    def get(request):
-        if request.user.is_authenticated:
-            return redirect('posts')
-        form = LoginUserForm()
-        context = {
-            'title': 'Авторизация',
-            'form': form
-        }
-        return render(request, 'profile_app/login.html', context)
+    # Подключаем форму
+    form_class = LoginUserForm
 
-    @staticmethod
-    def post(request):
-        form = LoginUserForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('posts')
-        else:
-            messages.error(request, 'Неверные логин и пароль. Попробуйте снова')
-            context = {
-                'title': 'Авторизация',
-                'form': form
-            }
-            return render(request, 'profile_app/login.html', context)
+    # Указываем путь к template для авторизации
+    template_name = 'profile_app/login.html'
+
+    # Включаем переадресация для авторизированных пользователей
+    redirect_authenticated_user = True
+
+    # Если авторизированны, то куда будет переадресация
+    next_page = '/posts/'
 
 
