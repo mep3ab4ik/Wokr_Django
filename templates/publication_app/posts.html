@@ -7,7 +7,14 @@
         <button type="button" class="btn btn-dark">Добавить пост</button>
     </a>
 </p>
-{% include 'publication_app/include/_posts.html' %}
+
+    {% if information %}
+    <h2>{{ information}}</h2>
+
+    {% else %}
+    {% include 'publication_app/include/_posts.html' %}
+    {% endif %}
+
 {% else %}
     <h3>Для просмотра данного раздела нужно авторизоваться или зарегистрировать!</h3>
     <p><a href="{% url 'login' %}">Авторизация</a></p>

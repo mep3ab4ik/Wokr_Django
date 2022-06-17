@@ -6,9 +6,12 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator as token_generator
 
+from celery import shared_task
+
 from tms_kerz.settings import EMAIL_HOST_USER
 
 
+@shared_task
 def send_email_for_verify(request, user):
     # С помощью get_current_site получаем домен
     current_site = get_current_site(request)

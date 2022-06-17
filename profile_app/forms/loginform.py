@@ -1,9 +1,8 @@
-from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 
-from profile_app.utils import send_email_for_verify
+from profile_app.tasks import send_email_for_verify
 
 
 class LoginUserForm(AuthenticationForm):

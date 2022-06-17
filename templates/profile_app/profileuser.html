@@ -88,14 +88,12 @@
         <button type="button" class="btn btn-primary">Подписаться</button>
     </a>
     {% endif %}
-
-<!--        <button type="button" class="btn btn-success">Добавить в друзья </button>-->
-<!--        <button type="button" class="btn btn-danger">Удалить из друзей</button>-->
-<!--        <button type="button" class="btn btn-primary">Подписаться</button>-->
     </div>
 </div>
-<p><b>Имя:</b> {{request.user.first_name}}</p>
-<p><b>Дата рождения:</b> {{ request.user.profile.date_of_birth|date:" M d,Y" }}</p>
+
+
+<p><b>Имя:</b> {{users.first_name}}</p>
+<p><b>Дата рождения:</b> {{ users.profile.date_of_birth|date:" M d,Y" }}</p>
 
 <div class="col-md">
     <h2>Посты пользователя:</h2>

@@ -7,7 +7,7 @@ from django.core.mail import EmailMessage
 from django.core.mail import send_mail
 from django.core import mail
 
-from profile_app.utils import send_email_for_verify
+from profile_app.tasks import send_email_for_verify
 from tms_kerz.settings import EMAIL_HOST_USER
 
 
@@ -30,7 +30,7 @@ class Register(View):
         if form.is_valid():
             user = form.save()
 
-            # Отправка письма для верификации почты (написано в utils.py)
+            # Отправка письма для верификации почты (написано в tasks.py)
             send_email_for_verify(request, user)
             return redirect('confirm_email')
 

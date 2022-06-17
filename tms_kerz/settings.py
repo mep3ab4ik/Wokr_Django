@@ -44,11 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_celery_results',
+    'drf_spectacular',
+
     'publication_app',
     'profile_app',
     'tag_app',
     'menu_app',
-    'drf_spectacular',
     'comment_app',
     'media_app',
     'like_app',
@@ -153,6 +155,11 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     'COMPONENT_SPLIT_REQUEST': True
 }
+
+CELERY_BROKEN_URL = 'reddis://127.0.0.1:6379/'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
+
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 587  # Это порт TLS, для SSL порт 465
