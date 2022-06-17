@@ -1,8 +1,9 @@
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from friends_app.models import Friendship
 from django.db.models import Q
+
+from friends_app.models import Friendship
 
 
 def operation_friend(request, operation, pk):

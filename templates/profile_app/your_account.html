@@ -2,7 +2,11 @@
 {% block content %}
 <h3>Данные вашего аккаунта</h3>
 
-<p align="right"><a href="{% url 'redaction'%}">Редактировать профиль</a></p>
+<p align="right">
+    <a href="{% url 'redaction'%}">
+        <button type="button" class="btn btn-info">Редактирование профиля</button>
+    </a>
+</p>
 
 {% if request.user.profile.photo %}
     <p> Ваш аватар:</p>

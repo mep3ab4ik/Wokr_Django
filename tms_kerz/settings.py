@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'media_app',
     'like_app',
     'friends_app',
+    'chat_app',
 ]
 
 MIDDLEWARE = [
