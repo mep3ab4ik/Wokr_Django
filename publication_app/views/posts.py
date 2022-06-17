@@ -35,7 +35,7 @@ class Posts(View):
             if post:
                 context = {
                     'title': "Посты",
-                    'name_text': 'Публикации',
+                    'name_text': 'Публикации друзей и фолловеров',
                     'posts': post,
                     'tag': tags,
                     'information': None,

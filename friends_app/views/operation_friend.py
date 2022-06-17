@@ -12,12 +12,33 @@ def operation_friend(request, operation, pk):
     if operation == 'add':
         Friendship.objects.get_or_create(sender=request.user, receiver=new_friend)
 
+    # Принимаем заявку в друзья
+    elif operation == 'accepted':
+        friend = Friendship.objects.filter(Q(sender=pk) & Q(receiver=request.user.pk) & Q(wait_answer=True))[0]
+        # проверка чтобы не сломать бд
+        if friend:
+            friend.wait_answer = False
+            friend.is_accepted = True
+            friend.save()
+            return redirect('your_account')
+
+    # Отклоняем заявку в друзья
+    elif operation == 'reject':
+        friend = Friendship.objects.filter(Q(sender=pk) & Q(receiver=request.user.pk) & Q(wait_answer=True))[0]
+
+        # проверка чтобы не сломать бд
+        if friend:
+            friend.wait_answer = False
+            friend.save()
+            return redirect('your_account')
+
     # Удаление из друзей
     elif operation == 'remove':
         friend = Friendship.objects.filter((Q(sender=pk) & Q(receiver=request.user.pk)) |
                                            (Q(sender=request.user.pk) & Q(receiver=pk)) & Q(is_accepted=True))[0]
-        print(friend)
+
         # Без удаления не придумал как проще
+        # Проверка, чтобы не сломать бд
         if friend:
             friend.sender = new_friend
             friend.receiver = request.user
