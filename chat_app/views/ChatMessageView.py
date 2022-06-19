@@ -16,6 +16,7 @@ class ChatMessageView(View):
             (Q(sender=pk) & Q(recipient=request.user.pk)) |
             (Q(sender=request.user.pk) & Q(recipient=pk))
         ).order_by("pk")
+
         form = ChatMessageForm()
         context = {
             'title': f'Чат с пользователем ',
