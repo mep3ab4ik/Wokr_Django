@@ -1,14 +1,9 @@
 from django.shortcuts import render, redirect
 from profile_app.forms.registerform import RegisterUserForm
-from django.contrib.auth import login
 from django.contrib import messages
 from django.views import View
-from django.core.mail import EmailMessage
-from django.core.mail import send_mail
-from django.core import mail
 
 from profile_app.tasks import send_email_for_verify
-from tms_kerz.settings import EMAIL_HOST_USER
 
 
 class Register(View):
