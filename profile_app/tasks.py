@@ -11,7 +11,7 @@ from celery import shared_task
 from tms_kerz.settings import EMAIL_HOST_USER
 
 
-@shared_task
+# @shared_task
 def send_email_for_verify(request, user):
     # С помощью get_current_site получаем домен
     current_site = get_current_site(request)
