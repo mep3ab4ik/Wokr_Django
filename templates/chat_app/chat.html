@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+{% if message %}
+
 {% for text in message %}
 
 {% if text.sender == request.user %}
@@ -21,7 +24,9 @@
 
 {% endfor%}
 
-
+{% else %}
+<h1>Сообщение еще нет, чтобы начать общение напишите пользователю</h1>
+{% endif %}
 <form method="POST">
   {% csrf_token %}
   {% for f in form.visible_fields  %}

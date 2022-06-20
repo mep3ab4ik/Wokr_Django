@@ -14,6 +14,9 @@
         {% endif %}</p>
     </div>
     <div class="feature col">
+        <a href="{% url 'chat' users.pk%}">
+                Отрыть сообщения с пользователям
+            </a>
          <details>
         <summary><b>Список друзей:</b></summary>
         {% for friend in friends%}
