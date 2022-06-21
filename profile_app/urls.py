@@ -12,7 +12,6 @@ from .views.profile_user import ProfileUserView
 from .views.EmailVerify import EmailVerify
 
 
-
 urlpatterns = [
     path('', MainPage.as_view(), name='main_page'),
 
@@ -27,6 +26,6 @@ urlpatterns = [
 
     path('redaction/', login_required(UserRedaction.as_view()), name='redaction'),
     path('your_account/', login_required(YourAccount.as_view()), name='your_account'),
-    path('user/<int:pk>', ProfileUserView.as_view(), name='user_account'),
+    path('user/<int:pk>', login_required(ProfileUserView.as_view()), name='user_account'),
     ]
 

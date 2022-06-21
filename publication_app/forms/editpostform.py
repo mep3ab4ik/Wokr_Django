@@ -1,9 +1,11 @@
 from django import forms
+
+
 from publication_app.models import Post
 
 
 class EditPostForm(forms.ModelForm):
-    """Класс формы для добавления постов"""
+    """Класс формы для редактирования постов"""
     title = forms.CharField(label='Введите название поста')
     text = forms.CharField(
         label='Введите тест к посту',

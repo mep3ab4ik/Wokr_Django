@@ -1,14 +1,16 @@
 from django import forms
+from django.core.exceptions import ValidationError
+import re
+
 from publication_app.models import Post
 from tag_app.models import Tag
-import re
-from django.core.exceptions import ValidationError
 
 
 class AddPostForm(forms.ModelForm):
-    title = forms.CharField(label='Введите название поста')
+    """Класс формы добавление поста"""
+    title = forms.CharField(label='Введите название поста*')
     text = forms.CharField(
-        label='Введите тест к посту',
+        label='Введите тест к посту*',
         widget=forms.Textarea()
     )
     is_public = forms.BooleanField(
@@ -41,6 +43,7 @@ class AddPostForm(forms.ModelForm):
 
 
 class ImagePostForm(AddPostForm):
+    """Класс формы добавление изображение к посту"""
     image = forms.ImageField(
         label='Выберите фотографии',
         required=False,
@@ -50,3 +53,9 @@ class ImagePostForm(AddPostForm):
     class Meta(AddPostForm.Meta):
         fields = AddPostForm.Meta.fields + ['image', ]
 
+    def clean_image(self):
+        image = self.cleaned_data['image']
+
+        if len(image) > 4:
+            raise ValidationError('Максимальное количество загружаемых фотографий не больше 4. Попробуйте снова. ')
+        return image

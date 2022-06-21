@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import User
-from friends_app.models import Friendship
 from django.db.models import Q
+from django.contrib.auth.models import User
+
+
+from friends_app.models import Friendship
 
 
 class ProfileUserView(View):
-
+    ""
     @staticmethod
     def get(request, pk):
         users = get_object_or_404(User, pk=pk)

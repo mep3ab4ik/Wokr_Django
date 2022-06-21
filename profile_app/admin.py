@@ -3,14 +3,14 @@ from django.contrib.auth.admin import UserAdmin as UserAdminBase
 from django.contrib.auth.models import User
 from profile_app.models import Profile
 from django.utils.html import mark_safe
-# Register your models here.
+
 
 admin.site.unregister(User)
 
 
 class ProfileInline(admin.StackedInline):
-    model = Profile
 
+    model = Profile
     list_display = ('user', 'date_of_birth', 'photo_tag')
     ordering = ('-user',)
     readonly_fields = ('photo_tag',)

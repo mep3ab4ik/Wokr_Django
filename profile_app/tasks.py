@@ -33,8 +33,6 @@ def send_email_for_verify(request, user):
         context=context,
     )
 
-
-
     # Открывает \ закрывает соединение для отправки писем. Можно указать open и close
     with mail.get_connection() as connection:
         email = EmailMessage(

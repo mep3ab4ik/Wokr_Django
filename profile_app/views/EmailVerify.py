@@ -13,6 +13,7 @@ User = get_user_model()
 
 
 class EmailVerify(View):
+    """Класс верификации email"""
 
     def get(self, request, uidb64, token):
         # Вызываем функция получение пользователя
@@ -43,7 +44,7 @@ class EmailVerify(View):
             # Получаем пользователя по полученному uid
             user = User.objects.get(pk=uid)
 
-        # Если его нет передаем None
+        # Иначе вызываем ошибку
         except (TypeError, ValueError, OverflowError,
                 User.DoesNotExist, ValidationError):
             user = None
