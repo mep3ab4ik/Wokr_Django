@@ -6,7 +6,9 @@ from comment_app.forms.add_coment import AddCommentsForm
 
 
 class ReadPostView(View):
-
+    """
+      View чтение поста
+    """
     @staticmethod
     def get(request, pk):
         posts = Post.objects.get(pk=pk)
@@ -24,7 +26,7 @@ class ReadPostView(View):
         new_request = request.POST.copy()
         new_request['user'] = request.user.pk
         new_request['post'] = pk
-        print(new_request)
+
         form = AddCommentsForm(data=new_request)
         if form.is_valid:
             form.save()

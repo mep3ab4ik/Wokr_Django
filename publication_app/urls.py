@@ -8,11 +8,10 @@ from .views.delete_post import delete_post
 from .views.get_tag import GetTag
 from .views.read_post import ReadPostView
 from .views.area_tag import Tags
+
 from .api.views.publications import TagPostView, HashtagPostView
 from .api.views.hastag import HashtagView
 from .api.views.router import api_routers
-
-
 
 
 urlpatterns = [
@@ -20,7 +19,7 @@ urlpatterns = [
     path('add_post/', login_required(AddPost.as_view()), name='add_post'),
     path('edit_post/<int:pk>/', login_required(EditImagePost.as_view()), name='edit_post'),
     path('delete_post/<int:pk>/', login_required(delete_post), name='delete_post'),
-    path('post/<int:pk>', ReadPostView.as_view(), name='read_post'),
+    path('post/<int:pk>', login_required(ReadPostView.as_view()), name='read_post'),
     path('tag/<str:tag>/', GetTag.as_view(), name='get_tag'),
     path('tags/', Tags.as_view(), name='tags'),
     path('api/', include(api_routers.urls)),

@@ -6,5 +6,5 @@ class ProfileAppConfig(AppConfig):
     name = 'profile_app'
 
     def ready(self):
-        import signals.registeruser
-        import signals.image_delete_user_os
+        import profile_app.signals.registeruser
+        import profile_app.signals.image_delete_user_os

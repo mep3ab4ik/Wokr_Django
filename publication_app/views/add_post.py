@@ -6,7 +6,7 @@ from publication_app.forms.add_post import ImagePostForm
 
 
 class AddPost(View):
-
+    """View добавление постов"""
     @staticmethod
     def get(request):
         form = ImagePostForm()

@@ -52,7 +52,8 @@ class Posts(View):
         else:
             context = {
                 'title': "Посты",
-                'information': 'Вы еще никого не добавили в друзья/фолловеры. Найдите пользователей, которые вам интересны'
+                'information': 'Вы еще никого не добавили в друзья/фолловеры. '
+                               'Найдите пользователей, которые вам интересны'
             }
 
         return render(request, 'publication_app/posts.html', context)

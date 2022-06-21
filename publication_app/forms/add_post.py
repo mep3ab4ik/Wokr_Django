@@ -53,6 +53,7 @@ class ImagePostForm(AddPostForm):
     class Meta(AddPostForm.Meta):
         fields = AddPostForm.Meta.fields + ['image', ]
 
+    # Валидатор на количество картинок
     def clean_image(self):
         image = self.cleaned_data['image']
 
