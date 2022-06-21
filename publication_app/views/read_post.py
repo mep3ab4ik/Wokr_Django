@@ -7,12 +7,13 @@ from comment_app.forms.add_coment import AddCommentsForm
 
 class ReadPostView(View):
     """
-      View чтение поста
+      View чтение поста и добавление комментария
     """
     @staticmethod
     def get(request, pk):
         posts = Post.objects.get(pk=pk)
         form = AddCommentsForm()
+
         context = {
             'title': 'Пост',
             'name_text': 'Публикации',
@@ -23,10 +24,12 @@ class ReadPostView(View):
 
     @staticmethod
     def post(request, pk):
+        # Записывает id пользователя и поста в перменную
         new_request = request.POST.copy()
         new_request['user'] = request.user.pk
         new_request['post'] = pk
 
+        # Сохраняем
         form = AddCommentsForm(data=new_request)
         if form.is_valid:
             form.save()
