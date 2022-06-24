@@ -45,18 +45,10 @@ class AddPostForm(forms.ModelForm):
 class ImagePostForm(AddPostForm):
     """Класс формы добавление изображение к посту"""
     image = forms.ImageField(
-        label='Выберите фотографии',
+        label='Выберите фотографии(Максимум 4)',
         required=False,
         widget=forms.ClearableFileInput(attrs={'multiple': True})
     )
 
     class Meta(AddPostForm.Meta):
         fields = AddPostForm.Meta.fields + ['image', ]
-
-    # Валидатор на количество картинок
-    def clean_image(self):
-        image = self.cleaned_data['image']
-
-        if len(image) > 4:
-            raise ValidationError('Максимальное количество загружаемых фотографий не больше 4. Попробуйте снова. ')
-        return image

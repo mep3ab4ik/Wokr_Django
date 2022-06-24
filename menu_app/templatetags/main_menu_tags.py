@@ -15,12 +15,8 @@ def main_menu():
 
 @register.inclusion_tag('menu_app/menu.html', takes_context=True)
 def profile_menu(context):
-    if context.request.user.is_superuser:
+    if context.request.user.is_authenticated:
         menu = [
-            {
-                'title': f'Адмика',
-                'url': '/admin/',
-            },
             {
                 'title': f'Добро пожаловать, {context.request.user.username}!',
                 'url': reverse_lazy('your_account'),
@@ -30,17 +26,8 @@ def profile_menu(context):
                 'url': reverse_lazy('logout'),
             },
         ]
-    # elif context.request.user.is_authenticated:
-    #     menu = [
-    #         {
-    #             'title': f'Добро пожаловать, {context.request.user.username}!',
-    #             'url': reverse_lazy('your_account'),
-    #         },
-    #         {
-    #             'title': 'Выйти',
-    #             'url': reverse_lazy('logout'),
-    #         },
-    #     ]
+        if context.request.user.is_superuser or context.request.user.is_staff:
+            menu.insert(0, {'title': 'Админка', 'url': '/admin/'})
     else:
         menu = [
             {

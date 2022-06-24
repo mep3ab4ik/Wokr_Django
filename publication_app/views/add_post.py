@@ -21,9 +21,17 @@ class AddPost(View):
     @staticmethod
     def post(request):
 
-        form = ImagePostForm(request.POST or None, request.FILES or None)
+        form = ImagePostForm(request.POST, request.FILES)
         files = request.FILES.getlist('image')
-        tags = form.cleaned_data.get('tag')
+        tags = request.POST.getlist('tag')
+
+        if len(files) > 4:
+            context = {
+                "title": "Добавление нового поста",
+                "form": form,
+                "error": "Максимальное количество фотографии - 4. Попробуйте снова"
+            }
+            return render(request, "publication_app/add_post.html", context)
 
         if form.is_valid():
             post_obj = Post.objects.create(
