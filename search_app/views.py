@@ -19,8 +19,9 @@ class UserSearchListView(ListView):
         if q:
             # Если 'q' в GET запросе, фильтруем кверисет по данным из 'q'
             # Для поиска пользователей у которых есть такое в имени.
+
             # return queryset.filter(Q(username__icontains=q)).
-            # Для поиска пользователей у которых начинается имя.
+            # Для поиска пользователей у которых начинается имя c q.
             return queryset.filter(Q(username__startswith=q))
         return None
 
