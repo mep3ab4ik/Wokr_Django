@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views import View
 
@@ -23,11 +24,17 @@ class GetTag(View):
         posts = Post.objects.filter(tag__id=id_tag)
 
         tags = Tag.objects.all()
+        # Пагинация Queryset по 3 объекта на страницу
+        paginator = Paginator(posts, 3)
+        # Получаем номер страницы
+        page_number = request.GET.get('page')
+        # Получаем объект
+        page_obj = paginator.get_page(page_number)
 
         context = {
             'title': 'Посты по тегам',
             'name_text': f'Публикации по тегу "{name_tag}"',
-            'posts': posts,
+            'posts': page_obj,
             'tag': tags,
             'name_tag': name_tag,
         }

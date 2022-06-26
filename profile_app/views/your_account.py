@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views import View
 from django.db.models import Q
@@ -12,7 +13,14 @@ class YourAccount(View):
     @staticmethod
     def get(request):
         # Получаем посты пользователя
-        post = Post.objects.filter(user=request.user.pk)
+        posts = Post.objects.filter(user=request.user.pk)
+
+        # Пагинация Queryset по 3 объекта на страницу
+        paginator = Paginator(posts, 3)
+        # Получаем номер страницы
+        page_number = request.GET.get('page')
+        # Получаем объект
+        page_obj = paginator.get_page(page_number)
 
         # Получаем всех друзей
         friend = Friendship.objects.filter(Q(sender=request.user.pk) | Q(receiver=request.user.pk)).\
@@ -26,7 +34,7 @@ class YourAccount(View):
 
         context = {
             'title': 'Информация о вашем аккаунте',
-            'posts': post,
+            'posts': page_obj,
             'friends': friend,
             'subs': sub,
             'wait_answers': wait_answer,

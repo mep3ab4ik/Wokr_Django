@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 from tag_app.models import Tag
 from publication_app.models import Post
@@ -29,14 +30,22 @@ class Posts(View):
         # Если у тебя друзья или фолловеры:
         if friendship:
             tags = Tag.objects.all()
-            post = Post.objects.filter(is_public=True).filter(user__in=users)
+            posts = Post.objects.filter(is_public=True).filter(user__in=users)
 
             # Проверка на наличие постов у "друзей"
-            if post:
+            if posts:
+
+                # Пагинация Queryset по 3 объекта на страницу
+                paginator = Paginator(posts, 3)
+                # Получаем номер страницы
+                page_number = request.GET.get('page')
+                # Получаем объект
+                page_obj = paginator.get_page(page_number)
+
                 context = {
                     'title': "Посты",
                     'name_text': 'Публикации друзей и фолловеров',
-                    'posts': post,
+                    'posts': page_obj,
                     'tag': tags,
                     'information': None,
                 }

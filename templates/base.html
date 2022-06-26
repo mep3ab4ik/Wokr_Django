@@ -27,5 +27,46 @@
 </nav>
 {% block content %}
 {% endblock %}
+
+{% if posts.has_other_pages %}
+<nav aria-label="Page navigation example" style="width: 10%;  margin: 0 auto; text-align: center;">
+    <ul class="pagination">
+
+        {% if posts.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1">&laquo; </a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" href="?page={{ posts.previous_page_number }}">&lt;</a>
+        </li>
+        {% endif %}
+
+        {% for p in posts.paginator.page_range %}
+        {% if posts.number == p %}
+        <li class="page-item">
+            {{ p }}
+        </li>
+        {% elif p >= posts.number|add:-2 and p <= posts.number|add:2 %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        {% if posts.has_next %}
+        <li class="page-item">
+             <a class="page-link" href="?page={{ posts.next_page_number }}">&gt;</a>
+        </li>
+
+        <li class="page-item">
+             <a class="page-link" href="?page={{ posts.paginator.num_pages }}">&raquo;</a>
+        </li>
+        {% endif %}
+
+    </ul>
+</nav>
+{% endif %}
+
 </body>
 </html>
