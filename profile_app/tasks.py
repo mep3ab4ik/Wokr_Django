@@ -1,4 +1,4 @@
-from django.contrib.sites.shortcuts import get_current_site
+import logging
 from django.core import mail
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
@@ -9,20 +9,21 @@ from django.contrib.auth.tokens import default_token_generator as token_generato
 from celery import shared_task
 
 from tms_kerz.settings import EMAIL_HOST_USER
+from django.contrib.auth.models import User
+
+logger = logging.getLogger('main')
 
 
-# @shared_task
-def send_email_for_verify(request, user):
-    # С помощью get_current_site получаем домен
-    current_site = get_current_site(request)
+@shared_task
+def send_email_for_verify(current_site, user_pk):
 
-    # Формирует контекст для сообщения
+    user = User.objects.get(pk=user_pk)
     # Для создания uid и токена используется user
 
     context = {
         'user': user,  # Пользователь
-        'domain': current_site.domain,  # Домен
-        'uid': urlsafe_base64_encode(force_bytes(user.pk)),  # Генерируем uid
+        'domain': current_site,  # Домен
+        'uid': urlsafe_base64_encode(force_bytes(user_pk)),  # Генерируем uid
         'token': token_generator.make_token(user),  # Генерируем токен
     }
 
@@ -44,7 +45,5 @@ def send_email_for_verify(request, user):
             # Используйте этот параметр, если вы хотите использовать одно и то же соединение для нескольких сообщений.
             # Если параметр опущен, то при вызове send() создается новое соединение.
         )
-
         # Отправка сообщение
-        email.send(fail_silently=False)
-
+        logging.info(email.send(fail_silently=False))
