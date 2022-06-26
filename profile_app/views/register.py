@@ -10,6 +10,8 @@ from profile_app.forms.registerform import RegisterUserForm
 logger = logging.getLogger('main')
 
 
+
+
 class Register(View):
     """Класс регистрации пользователя"""
     @staticmethod
@@ -29,15 +31,14 @@ class Register(View):
     @staticmethod
     def post(request):
         form = RegisterUserForm(request.POST)
-        print(request)
+
         if form.is_valid():
             user = form.save()
 
             # Получаем домен перед передачей в celerу, так как он может принимать только конкретные значение
             current_site = get_current_site(request)
-
             # Отправка письма для верификации почты (написано в tasks.py)
-            send_email_for_verify.delay(current_site.domain, user.pk)
+            logging.info(send_email_for_verify.delay(current_site.domain, user.pk))
             return redirect('confirm_email')
 
         else:

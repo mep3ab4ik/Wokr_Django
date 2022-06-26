@@ -46,4 +46,5 @@ def send_email_for_verify(current_site, user_pk):
             # Если параметр опущен, то при вызове send() создается новое соединение.
         )
         # Отправка сообщение
+        logging.info('Отправление сообщение...')
         logging.info(email.send(fail_silently=False))

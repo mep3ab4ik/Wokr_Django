@@ -154,7 +154,10 @@ SPECTACULAR_SETTINGS = {
     'COMPONENT_SPLIT_REQUEST': True
 }
 
-CELERY_BROKEN_URL = 'reddis://127.0.0.1:6379/'
+
+CELERY_BROKEN_URL = 'reddis://localhost:6379'
+
+
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
 
@@ -165,3 +168,40 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    # Каким образом мы их выводим, может быть несколько
+    'formatters': {
+        'main_format': {
+            # Формат нашего сообщения(Время - название уровень - путь к файлу - название файла - сообщения)
+            'format': '{asctime} - {levelname} - {pathname} - {filename} - {message} ',
+            'style': '{'
+        },
+    },
+
+    # Куда поступают логи и как обрабатываются
+    'handlers': {
+
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'main_format',
+        },
+
+        'file': {
+            'class': 'logging.FileHandler',
+            'formatter': 'main_format',
+            'filename': 'information.log',
+        },
+    },
+    # То что пишет в файл и etc
+    'loggers': {
+        'main': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
