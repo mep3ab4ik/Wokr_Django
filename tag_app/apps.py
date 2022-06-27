@@ -5,6 +5,6 @@ class TagAppConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'tag_app'
 
-
+asd
     def ready(self):
         import tag_app.signal.find_and_add_hastag
