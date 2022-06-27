@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 from dotenv import load_dotenv
+import django_heroku
 
 from pathlib import Path
 import os
@@ -205,3 +206,5 @@ LOGGING = {
         },
     },
 }
+
+django_heroku.settings(locals())

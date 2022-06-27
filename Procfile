@@ -1,1 +1,1 @@
-web: gunicorn tms_kerz.wsgi
+web: python manage.py migrate && gunicorn tms_kerz.wsgi
