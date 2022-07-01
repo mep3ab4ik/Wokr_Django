@@ -29,11 +29,12 @@ class Posts(View):
 
         # Если у тебя друзья или фолловеры:
         if users:
-            tags = Tag.objects.all()
             posts = Post.objects.filter(is_public=True).filter(user__in=users)
 
             # Проверка на наличие постов у "друзей"
             if posts:
+
+                tags = Tag.objects.all()
 
                 # Пагинация Queryset по 3 объекта на страницу
                 paginator = Paginator(posts, 3)
@@ -54,15 +55,8 @@ class Posts(View):
             else:
                 context = {
                     'title': "Посты",
-                    'information': 'У вашей друзей/фолловеров нет постов. '
-                                   'Найдите новых пользователей, которые вам интересны'
+                    'information': 'Вы еще никого не добавили в друзья/фолловеры и не добавили пост. '
+                                   'Найдите пользователей или добавьте посты, которые вам интересны'
                 }
-
-        else:
-            context = {
-                'title': "Посты",
-                'information': 'Вы еще никого не добавили в друзья/фолловеры. '
-                               'Найдите пользователей, которые вам интересны'
-            }
 
         return render(request, 'publication_app/posts.html', context)
