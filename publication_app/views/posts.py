@@ -17,7 +17,7 @@ class Posts(View):
                                                (Q(receiver=request.user.pk) & Q(is_accepted=True)))
 
         # Объявляем пустой список для id друзей\фоловеров
-        users = []
+        users = [request.user.pk]
 
         for friend in friendship:
 
@@ -28,7 +28,7 @@ class Posts(View):
                 users.append(friend.receiver.pk)
 
         # Если у тебя друзья или фолловеры:
-        if friendship:
+        if users:
             tags = Tag.objects.all()
             posts = Post.objects.filter(is_public=True).filter(user__in=users)
 
